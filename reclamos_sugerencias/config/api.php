@@ -4,9 +4,15 @@ class API {
    private $URL_API = "http://localhost:8083/reclamos_sugerencias_api/"; 
    private $KEY_API = "a53e668b01cd159065efa4070c5c9844485edb6f8f01bb775ed9307e5716e97a"; 
    private $endPoint = '' ; 
+   private $params = '' ; 
 
    public function __construct($endpoint = null) {
       $this->endPoint = $endpoint;
+   }
+
+
+   public function set_parametro($param) {
+      $this->params = '/'.$param;
    }
 
    public function call_api($data = NULL, $method = NULL)
@@ -16,7 +22,7 @@ class API {
      
       $curl = curl_init();
       curl_setopt_array($curl, array(
-      CURLOPT_URL => $this->URL_API  . $this->endPoint,
+      CURLOPT_URL => $this->URL_API  . $this->endPoint . $this->params,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => '',
       CURLOPT_MAXREDIRS => 10,

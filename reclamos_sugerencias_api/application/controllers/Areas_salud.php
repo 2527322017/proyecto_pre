@@ -11,7 +11,7 @@ class Areas_salud extends CI_Controller {
 		if (ob_get_contents()) ob_end_clean(); 
 
 		validar_acceso();
-		$this->load->model('area_salud_model');		
+		$this->load->model('area_salud_model', 'model_catalogo');		
     }
 
 
@@ -33,7 +33,7 @@ class Areas_salud extends CI_Controller {
 				break;
 			default:
 				$response["error"] = true;	
-				$response["message"] = "Acceso denegado. Método inválido";
+				$response["message"] = "Método inválido";
 				break;
 		}
 		
@@ -44,12 +44,12 @@ class Areas_salud extends CI_Controller {
 
 		$where = null;
 		if($id > 0) {
-			$where['id_area_sal'] = $id;
+			$where['primary_key'] = $id;
 		}
 		
 		$response = [];
 		$response['status'] = "success";
-		$response['result'] = $this->area_salud_model->consultar($where);
+		$response['result'] = $this->model_catalogo->consultar($where);
 		die(json_encode($response));
 	}
 
@@ -57,9 +57,14 @@ class Areas_salud extends CI_Controller {
 	{
 		$data = json_decode(file_get_contents('php://input'), true);
         $request = (count($_POST) > 0)? $_POST:$data;
+		
+		if(!is_array($request)) {
+			parse_str(file_get_contents('php://input'),$request);
+		}
+
 		$response = [];
 		if(is_array($request) && count($request) > 0  && isset($request['nombre']) && trim($request['nombre']) != '' ) {
-			$q_existe = $this->area_salud_model->consultar(['nombre'=>trim($request['nombre'])]);
+			$q_existe = $this->model_catalogo->consultar(['nombre'=>trim($request['nombre'])]);
 			if($q_existe) {
 				$response['status'] = "error";
 				$response['result'] = ['msg'=>'Nombre ya existe'];
@@ -70,7 +75,7 @@ class Areas_salud extends CI_Controller {
 				$datos_insert['fecha_mod'] 	= date('Y-m-d H:i:s');
 				$datos_insert['usu_crea'] 	= (isset($request['id_user']) && $request['id_user'] > 0)? $request['id_user']:1;
 				$datos_insert['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:1;
-				$new = $this->area_salud_model->crear($datos_insert);
+				$new = $this->model_catalogo->crear($datos_insert);
 				
 				$response['status'] = "success";
 				$response['result'] = ['id'=>$new];
@@ -87,35 +92,58 @@ class Areas_salud extends CI_Controller {
 	{
 		$data = json_decode(file_get_contents('php://input'), true);
         $request = (count($_POST) > 0)? $_POST:$data;
-		$id = ($id > 0)? $id: $request['id'];
-
-		$datos_update['nombre'] 	= $request['nombre'];
-		$datos_update['estado'] 	= $request['usuario'];
-		$datos_update['fecha_mod'] 	= $request['fecha_mod'];
-		$datos_update['usu_mod'] 	= $request['usu_mod'];
-		$condicion['id'] 			= $id;
-		if(trim($datos_update['nombre']) == '') {
-			$response['error'] = "nombre requerido";
-			die(json_encode($response));
+		if(!is_array($request)) {
+			parse_str(file_get_contents('php://input'),$request);
 		}
-		$this->area_salud_model->actualizar($datos_update,$condicion);
+		$id = ($id > 0)? $id: (isset($request['id'])? $request['id']:0);
+
 		$response = [];
-		$response['status'] = "success";
-		$response['result'] = ['id'=>$id];
+		if(is_array($request) && count($request) > 0  && isset($request['nombre']) && trim($request['nombre']) != '' && $id > 0 ) { 
+			$q_existe = $this->model_catalogo->consultar(['nombre'=>trim($request['nombre']), 'primary_key !='=>$id]);
+			if($q_existe) {
+				$response['status'] = "error";
+				$response['result'] = ['msg'=>'Nombre ya existe'];
+			} else { 
+				$datos_update['nombre'] 	= $request['nombre'];
+				$datos_update['estado'] 	= (isset($request['estado']) && $request['estado'] >= 0)? $request['estado']:1;
+				$datos_update['fecha_mod'] 	= date('Y-m-d H:i:s');
+				$datos_update['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:1;
+				$condicion['primary_key'] 			= $id;
+		
+				$this->model_catalogo->actualizar($datos_update,$condicion);
+				$response = [];
+				$response['status'] = "success";
+				$response['result'] = ['id'=>$id];
+			}
+		} else {
+			$response['status'] = "error";
+			$response['result'] = ['msg'=>'Campos requeridos'];
+		}
 		die(json_encode($response));
 	}
 
 	public function eliminar($id=null)
-	{
+	{	
+		$response = [];
+		
 		$data = json_decode(file_get_contents('php://input'), true);
         $request = (count($_POST) > 0)? $_POST:$data;
+		if(!is_array($request)) {
+			parse_str(file_get_contents('php://input'),$request);
+		}
 		$id = ($id > 0)? $id: $request['id'];
 
-		$condi['id']	= $id;
-		$this->area_salud_model->eliminar($condi);
-		$response = [];
-		$response['status'] = "success";
-		$response['result'] = ['id'=>$id];
+		$condi['primary_key']	= $id;
+		$registro_ocupado = $this->model_catalogo->permite_eliminar(['relation_key'=>$id]);
+		if($registro_ocupado) {
+			$response['status'] = "error";
+			$response['result'] = ['msg'=>'Registro en uso, imposible eliminar'];
+		} else {
+			$this->model_catalogo->eliminar($condi);
+			$response['status'] = "success";
+			$response['result'] = ['id'=>$id];
+		}
+		
 		die(json_encode($response));
 	}
 }

@@ -3,18 +3,23 @@
 class Router {
   
   private $load_page = 'inicio'; //default
-  private $include_page ;
-
-  public function __construct($page = null) {
+  private $include_page = '';
+  private $page_access = [];
+  public function __construct($page = null, $page_user=null) {
     if($page) {
       $this->load_page = $page;
     }
+    $this->page_access = ($page_user)? $page_user:[$this->load_page]; //[]
   }
 
   public function load_page() {
     switch ($this->load_page) {
       case 'inicio':
         $this->include_page = 'welcome.php';
+        break;
+      case 'departamento':
+        $this->include_page = 'pages/catalogos/departamentos.php';
+        break;
         break;
       case 'areas':
         $this->include_page = 'pages/catalogos/area_salud.php';
@@ -30,6 +35,11 @@ class Router {
         $this->include_page = 'pages/system/no_found.php';
       break;
     }  
+
+    if(!in_array($this->load_page, $this->page_access)) {
+      $this->include_page = 'pages/system/no_access.php';
+    }
+
     include($this->include_page);
    // return $this->include_page;  
   }

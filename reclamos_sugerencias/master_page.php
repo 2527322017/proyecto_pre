@@ -52,43 +52,48 @@
                     <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
-                            <h3>General</h3>
+                            <h3>MENÚ</h3>
                             <ul class="nav side-menu">
                                 <li><a href="<?=HOST?>"><i class="fa fa-home"></i> Inicio </a></li>
-                                <li><a><i class="fa fa-edit"></i> Reclamos <span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="fa fa-edit"></i> Reclamos / Sugerencias <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">Nuevo reclamo</a></li>
-                                        <li><a href="#">Seguimiento de reclamos</a></li>
+                                        <li><a href="#">Nuevo reclamo/sugerencia</a></li>
+                                        <li><a href="#">Consultar estado</a></li>
+                                        <li><a href="#">Seguimiento de caso</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">Reporte 1</a></li>
-                                        <li><a href="#">Reporte 2</a></li>
-                                        <li><a href="#">Reporte 3</a></li>
-                                        <li><a href="#">Reporte 4</a></li>
+                                        <li><a href="#">Reclamos y resoluciones</a></li>
+                                        <li><a href="#">Total de sugerencias</a></li>
+                                        <li><a href="#">Estadisticas por resolución</a></li>
+                                        <li><a href="#">Estadisticas de sugerencias</a></li>
                                         <li><a href="<?=HOST?>page/forms">Forms</a></li>
                                         <li><a href="<?=HOST?>page/tables">Tables</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-bar-chart-o"></i> Configuración <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                        <li><a href="<?=HOST?>page/departamento">Departamento</a></li>
+                                        <li><a href="<?=HOST?>page/municipio">Municipio</a></li>
+                                        <li><a href="<?=HOST?>page/genero">G&eacute;nero</a></li>
+                                        <li><a href="<?=HOST?>page/tipo_cliente">Tipo de clientes</a></li>
                                         <li><a href="<?=HOST?>page/areas">Areas de salud</a></li>
-                                        <li><a href="#">Reporte 2</a></li>
-                                        <li><a href="#">Reporte 3</a></li>
-                                        <li><a href="#">Reporte 4</a></li>
-                                       
+                                        <li><a href="<?=HOST?>page/tipo_documento">Tipo documentos</a></li>
+                                        <li><a href="<?=HOST?>page/tipo_registro">Tipo registro</a></li>
+                                        <li><a href="<?=HOST?>page/tipo_resolucion">Tipo resoluciones</a></li>                                       
                                     </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="menu_section">
-                            <h3>Live On</h3>
+                            <h3>OTROS</h3>
                             <ul class="nav side-menu">
-                                <li><a><i class="fa fa-comments"></i> Chat<span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="fa fa-comments"></i> Contactanos<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">Online</a></li>
-                                        <li><a href="#">Messages Offline</a></li>
+                                        <li><a href="#">Preguntas frecuentes</a></li>
+                                        <li><a href="#">Telefonos</a></li>
+                                        <li><a href="#">Redes sociales</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -140,21 +145,26 @@
     </div>
 
         <!-- Bootstrap -->
-        <script src="<?=HOST?>js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="<?=HOST?>js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="<?=HOST?>js/iCheck/icheck.min.js"></script>
     <!-- bootstrap-wysiwyg -->
     <script src="<?=HOST?>js/bootstrap/bootstrap-wysiwyg.min.js"></script>
     <script src="<?=HOST?>js/prettify.js"></script>
     <!-- Switchery -->
+    
     <script src="<?=HOST?>js/switchery/switchery.min.js"></script>
+    
+    <script src="<?=HOST?>js/sweetalert/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="<?=HOST?>js/sweetalert/sweetalert2.min.css">
+    <script src="<?=HOST?>js/validate/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href="<?=HOST?>js/dataTable/jquery.dataTables.min.css">
+    <script src="<?=HOST?>js/dataTable/jquery.dataTables.min.js"></script>
+
+
     <!-- Custom Theme Scripts -->
     <script src="<?=HOST?>js/custom.min.js"></script>
     <script src="<?=HOST?>js/master_page.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
-    <!-- Argon JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
-
-
+    
 </body>
 
 </html>
