@@ -1,11 +1,11 @@
 <?php
 
-class Departamento_model extends CI_Model
+class Tipo_cliente_model extends CI_Model
 {
-    private $table_model = 'departamento';
-    private $table_primary_key = 'id_departamento';
-    private $table_relation = 'municipio';
-    private $table_relation_key = 'departamento_id';
+    private $table_model = 'tipo_cliente';
+    private $table_primary_key = 'id_tipo_cli';
+    private $table_relation = 'registro_caso';
+    private $table_relation_key = 'tipo_cli_id';
   	public function __construct(){
    		$this->load->database();
  	}

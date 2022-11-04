@@ -57,7 +57,7 @@
                                 <li><a href="<?=HOST?>"><i class="fa fa-home"></i> Inicio </a></li>
                                 <li><a><i class="fa fa-edit"></i> Reclamos / Sugerencias <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">Nuevo reclamo/sugerencia</a></li>
+                                        <li><a href="<?=HOST?>page/reclamo">Nuevo reclamo/sugerencia</a></li>
                                         <li><a href="#">Consultar estado</a></li>
                                         <li><a href="#">Seguimiento de caso</a></li>
                                     </ul>
@@ -77,8 +77,8 @@
                                         <li><a href="<?=HOST?>page/departamento">Departamento</a></li>
                                         <li><a href="<?=HOST?>page/municipio">Municipio</a></li>
                                         <li><a href="<?=HOST?>page/genero">G&eacute;nero</a></li>
-                                        <li><a href="<?=HOST?>page/tipo_cliente">Tipo de clientes</a></li>
-                                        <li><a href="<?=HOST?>page/areas">Areas de salud</a></li>
+                                        <li><a href="<?=HOST?>page/cliente">Tipo de clientes</a></li>
+                                        <li><a href="<?=HOST?>page/areas">&Aacute;reas de salud</a></li>
                                         <li><a href="<?=HOST?>page/tipo_documento">Tipo documentos</a></li>
                                         <li><a href="<?=HOST?>page/tipo_registro">Tipo registro</a></li>
                                         <li><a href="<?=HOST?>page/tipo_resolucion">Tipo resoluciones</a></li>                                       

@@ -1,4 +1,4 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/areas_salud';
+var URL_AJAX = '/reclamos_sugerencias/procesar_datos/tipo_documento';
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina
 
@@ -47,7 +47,7 @@ function consultar() {
                     html_tbody += `<tr class="even pointer" data-id="${registro.id_key}">
                                 <td data="indice">${indice + 1}</td>
                                 <td data="nombre">${registro.nombre}</td>
-                                <td data="estado" data-value="${registro.estado}" >${estado_registro}</td>
+                                <td data="estado" data-value="${registro.estado}" >${estado_registro}</_atd>
                                 <td data="accion" class="acciones">
                                 <button type="button" class="btn btn-info btnEditar" data-id="${registro.id_key}" >Editar</button>
                                 <button type="button" class="btn btn-danger btnEliminar" data-id="${registro.id_key}" >Eliminar</button>

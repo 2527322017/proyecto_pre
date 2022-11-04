@@ -1,4 +1,4 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/areas_salud';
+var URL_AJAX = '/reclamos_sugerencias/procesar_datos/tipo_registro';
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina
 

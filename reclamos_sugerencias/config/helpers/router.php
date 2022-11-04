@@ -15,24 +15,42 @@ class Router {
   public function load_page() {
     switch ($this->load_page) {
       case 'inicio':
-        $this->include_page = 'welcome.php';
-        break;
+      $this->include_page = 'welcome.php';
+      break;
       case 'departamento':
-        $this->include_page = 'pages/catalogos/departamentos.php';
-        break;
-        break;
+      $this->include_page = 'pages/catalogos/departamentos.php';
+      break;
+      case 'genero':
+      $this->include_page = 'pages/catalogos/generos.php';
+      break;
       case 'areas':
-        $this->include_page = 'pages/catalogos/area_salud.php';
-        break;
+      $this->include_page = 'pages/catalogos/area_salud.php';
+      break;      
+      case 'reclamo':
+      $this->include_page = 'pages/reclamos/nuevo_reclamo.php';
+      break;
+      case 'cliente':
+      $this->include_page = 'pages/catalogos/tipo_cliente.php';
+      break;      
+      case 'tipo_documento':
+      $this->include_page = 'pages/catalogos/tipo_documento.php';
+      break;
+      case 'tipo_registro':
+      $this->include_page = 'pages/catalogos/tipo_registro.php';
+      break;      
+      case 'tipo_resolucion':
+      $this->include_page = 'pages/catalogos/tipo_resolucion.php';
+      break; 
+
       case 'forms':
-        $this->include_page = 'pages/system/ej_form.php';
-        break;
+      $this->include_page = 'pages/system/ej_form.php';
+      break;
       case 'tables':
-        $this->include_page = 'pages/system/ej_table.php';
-        break;
+      $this->include_page = 'pages/system/ej_table.php';
+      break;
       
       default:
-        $this->include_page = 'pages/system/no_found.php';
+      $this->include_page = 'pages/system/no_found.php';
       break;
     }  
 
@@ -55,7 +73,7 @@ class Router {
       include($file);
     }
     return ob_get_clean();
-   
+    
   }
 
 
@@ -65,4 +83,4 @@ class Router {
     return $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'] . '/' . $carpeta_proyecto . trim($url);
   }
 
- }
+}
