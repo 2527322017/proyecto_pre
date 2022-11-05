@@ -79,9 +79,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
+	<h1>API - Sistema de Reclamos y Sugerencias</h1>
 
 	<div id="body">
+	<p>Debes solicitar el API KEY para hacer uso de los Servicios Web.</p>
+	<?php /* ?>
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
 
 		<p>If you would like to edit this page you'll find it located at:</p>
@@ -91,9 +93,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<code>application/controllers/Welcome.php</code>
 
 		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="userguide3/">User Guide</a>.</p>
+	<?php */ ?>
 	</div>
-
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+	<?php /* ?>
+	<p class="footer" >Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+	<?php */ ?>
 </div>
 
 </body>

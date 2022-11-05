@@ -7,14 +7,14 @@
             </div>
             <div class="x_content">
                 <br />
-                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                <form id="frmAgregar" autocomplete="off" data-parsley-validate class="form-horizontal form-label-left">
 
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Departamento</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <select id="heard" class="form-control" required>
-                                <option value="">Choose..</option>
+                            <select  name="departamento_id" class="form-control" required>
+                                <option value="">Cargando...</option>
                                 <option value="press">Press</option>
                                 <option value="net">Internet</option>
                                 <option value="mouth">Word of mouth</option>
@@ -26,8 +26,8 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Municipio</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <select id="heard" class="form-control" required>
-                                <option value="">Choose..</option>
+                            <select name="municipio_id" class="form-control" required>
+                                <option value="">Cargando...</option>
                                 <option value="press">Press</option>
                                 <option value="net">Internet</option>
                                 <option value="mouth">Word of mouth</option>
@@ -39,8 +39,8 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Tipo de cliente</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <select id="heard" class="form-control" required>
-                                <option value="">Choose..</option>
+                            <select name="tipo_cli_id" class="form-control" required>
+                                <option value="">Cargando...</option>
                                 <option value="press">Press</option>
                                 <option value="net">Internet</option>
                                 <option value="mouth">Word of mouth</option>
@@ -52,8 +52,8 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Tipo de registro</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <select id="heard" class="form-control" required>
-                                <option value="">Choose..</option>
+                            <select name="tipo_reg_id" class="form-control" required>
+                                <option value="">Cargando...</option>
                                 <option value="press">Press</option>
                                 <option value="net">Internet</option>
                                 <option value="mouth">Word of mouth</option>
@@ -65,8 +65,8 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> &Aacute;rea de salud</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <select id="heard" class="form-control" required>
-                                <option value="">Choose..</option>
+                            <select name="area_sal_id" class="form-control" required>
+                                <option value="">Cargando...</option>
                                 <option value="press">Press</option>
                                 <option value="net">Internet</option>
                                 <option value="mouth">Word of mouth</option>
@@ -78,8 +78,8 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Tipo de documento</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <select id="heard" class="form-control" required>
-                                <option value="">Choose..</option>
+                            <select name="tipo_doc_id" class="form-control" required>
+                                <option value="">Cargando...</option>
                                 <option value="press">Press</option>
                                 <option value="net">Internet</option>
                                 <option value="mouth">Word of mouth</option>
@@ -91,7 +91,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> N° de documento</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="last-name" name="last-name" required="required" class="form-control">
+                            <input type="text" name="numero_documento" required="required" class="form-control">
                         </div>
                     </div>
 
@@ -100,7 +100,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Nombres</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="last-name" name="last-name" required="required" class="form-control">
+                            <input type="text" name="nombre" required="required" class="form-control">
                         </div>
                     </div>
 
@@ -109,7 +109,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Apellidos</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="last-name" name="last-name" required="required" class="form-control">
+                            <input type="text" name="apellido" required="required" class="form-control">
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Tel&eacute;fono</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="last-name" name="last-name" required="required" class="form-control">
+                            <input type="text" name="telefono" required="required" class="form-control">
                         </div>
                     </div>
 
@@ -126,8 +126,8 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> G&eacute;nero</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <select id="heard" class="form-control" required>
-                                <option value="">Choose..</option>
+                            <select  name="genero_id" class="form-control" required>
+                                <option value="">Cargando...</option>
                                 <option value="press">Press</option>
                                 <option value="net">Internet</option>
                                 <option value="mouth">Word of mouth</option>
@@ -140,7 +140,7 @@
                                 class="fa fa-asterisk" style='color: red'></i> Direcci&oacute;n de
                             residencia</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <textarea id="message" required="required" class="form-control" name="message"
+                            <textarea required="required" class="form-control" name="direccion_residencia"
                                 data-parsley-trigger="keyup"
                                 data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                                 data-parsley-validation-threshold="10"></textarea>
@@ -156,7 +156,7 @@
                             ¿Cuándo ocurrió?
                         </label>
                         <div class="col-md-6 col-sm-6 ">
-                            <textarea id="message" class="form-control" name="message" style="height: 10em;"
+                            <textarea class="form-control" name="descripcion" style="height: 10em;"
                                 data-parsley-trigger="keyup"></textarea>
                         </div>
                     </div>

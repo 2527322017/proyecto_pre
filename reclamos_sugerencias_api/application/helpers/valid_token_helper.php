@@ -6,12 +6,12 @@ function validar_acceso()
     $cabecera = getallheaders();
     if(!isset($cabecera['Authorization'])) {
         $response["error"] = true;	
-        $response["message"] = "Acceso denegado. Token inválido";
+        $response["message"] = "Acceso denegado. API KEY inválida";
         header("HTTP/1.1 401");
         die(json_encode($response));
     } else if($cabecera['Authorization'] != API_KEY) {
         $response["error"] = true;
-        $response["message"] = "Acceso denegado. Token inválido";
+        $response["message"] = "Acceso denegado. API KEY inválida";
         header("HTTP/1.1 401");
         die(json_encode($response));
     } 

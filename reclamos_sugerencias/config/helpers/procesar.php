@@ -1,4 +1,5 @@
 <?php 
+ session_start();
  include("../api.php");
 
  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
@@ -12,6 +13,8 @@
  
 
   if($service != '') {
+    
+    $service = str_replace('__','/',$service);
     $API = new API($service);
     //Para usar en editar o eliminar
     $id_registro = (isset($request['id']) && trim($request['id']) != '')? trim($request['id']):'';
@@ -20,7 +23,19 @@
       $API->set_parametro($id_registro);
     }
 
+    if(isset($_SESSION['id_user']) && $_SESSION['id_user'] > 0) {
+      $request['id_user']=$_SESSION['id_user']; //enviar el id de usuario
+   }
+
     $respuesta = $API->call_api($request, $_SERVER['REQUEST_METHOD']);
+    if($service == 'login') {
+      $data = json_decode($respuesta, true);
+      if($data['status'] == 'success') {
+        $_SESSION["id_user"]=$data['result']['id_usuario'];
+        $_SESSION["tipo_user"]=$data['result']['tipo'];
+        $_SESSION["usuario"]=$data['result'];
+      }
+    }
     die($respuesta);
   }
 }

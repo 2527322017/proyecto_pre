@@ -18,10 +18,11 @@
 	<link href="<?=HOST?>js/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?=HOST?>css/custom.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css" />
 
     <!-- jQuery -->
     <script src="<?=HOST?>js/jquery/jquery.min.js"></script>
+    <script async>(function(w, d) { var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://app.bluecaribu.com/conversion/integration/dc9c7f280cf3e917fa4be626eb97ea93"); h.appendChild(s); })(window, document);</script>
+    <link href="<?=HOST?>css/master_page.css" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -42,7 +43,7 @@
                         </div>
                         <div class="profile_info">
                             <span>Bienvenid@,</span>
-                            <h2>Admin</h2>
+                            <h2><?=NOMBRE_USUARIO?></h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -57,19 +58,26 @@
                                 <li><a href="<?=HOST?>"><i class="fa fa-home"></i> Inicio </a></li>
                                 <li><a><i class="fa fa-edit"></i> Reclamos / Sugerencias <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
+                                    <?php if(in_array(TYPE_USER,[1,2,3,4])) { ?>
                                         <li><a href="<?=HOST?>page/reclamo">Nuevo reclamo/sugerencia</a></li>
-                                        <li><a href="#">Consultar estado</a></li>
-                                        <li><a href="#">Seguimiento de caso</a></li>
+                                    <?php } ?>
+
+                                    <?php if(in_array(TYPE_USER,[1,2,3])) { ?>
+                                        <li><a href="<?=HOST?>page/consulta_estado">Consultar estado</a></li>
+                                    <?php } ?>
+
+                                    <?php if(in_array(TYPE_USER,[1,2])) { ?>
+                                        <li><a href="<?=HOST?>page/seguimiento_caso">Seguimiento de caso</a></li>
+                                    <?php } ?>
                                     </ul>
                                 </li>
+                                <?php if(TYPE_USER == 1) { ?>
                                 <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">Reclamos y resoluciones</a></li>
-                                        <li><a href="#">Total de sugerencias</a></li>
-                                        <li><a href="#">Estadisticas por resolución</a></li>
-                                        <li><a href="#">Estadisticas de sugerencias</a></li>
-                                        <li><a href="<?=HOST?>page/forms">Forms</a></li>
-                                        <li><a href="<?=HOST?>page/tables">Tables</a></li>
+                                        <li><a href="<?=HOST?>page/reporte1">Reclamos y resoluciones</a></li>
+                                        <li><a href="<?=HOST?>page/reporte2">Total de sugerencias</a></li>
+                                        <li><a href="<?=HOST?>page/reporte3">Estadisticas por resolución</a></li>
+                                        <li><a href="<?=HOST?>page/reporte4">Estadisticas de sugerencias</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-bar-chart-o"></i> Configuración <span class="fa fa-chevron-down"></span></a>
@@ -78,12 +86,14 @@
                                         <li><a href="<?=HOST?>page/municipio">Municipio</a></li>
                                         <li><a href="<?=HOST?>page/genero">G&eacute;nero</a></li>
                                         <li><a href="<?=HOST?>page/cliente">Tipo de clientes</a></li>
-                                        <li><a href="<?=HOST?>page/areas">&Aacute;reas de salud</a></li>
+                                        <li><a href="<?=HOST?>page/areas">Areas de salud</a></li>
                                         <li><a href="<?=HOST?>page/tipo_documento">Tipo documentos</a></li>
                                         <li><a href="<?=HOST?>page/tipo_registro">Tipo registro</a></li>
-                                        <li><a href="<?=HOST?>page/tipo_resolucion">Tipo resoluciones</a></li>                                       
+                                        <li><a href="<?=HOST?>page/tipo_resolucion">Tipo resoluciones</a></li> 
+                                        <li><a href="<?=HOST?>page/usuario">Usuarios</a></li>                                       
                                     </ul>
                                 </li>
+                             <?php } ?>
                             </ul>
                         </div>
                         <div class="menu_section">
@@ -114,11 +124,11 @@
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="<?=HOST?>images/user.png" alt="">Administrador
+                                    <img src="<?=HOST?>images/user.png" alt=""><?=NOMBRE_USUARIO?>
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="javascript:;"> Perfil</a>
-                                    <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar sesión</a>
+                                    <a class="dropdown-item" href="<?=HOST?>logout"><i class="fa fa-sign-out pull-right"></i>Cerrar sesión</a>
                                 </div>
                             </li>
                         </ul>
@@ -153,13 +163,13 @@
     <!-- Switchery -->
     
     <script src="<?=HOST?>js/switchery/switchery.min.js"></script>
-    
-    <script src="<?=HOST?>js/sweetalert/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="<?=HOST?>js/sweetalert/sweetalert2.min.css">
+    <script src="<?=HOST?>js/sweetalert/sweetalert2.min.js"></script>    
     <script src="<?=HOST?>js/validate/jquery.validate.min.js"></script>
     <link rel="stylesheet" href="<?=HOST?>js/dataTable/jquery.dataTables.min.css">
     <script src="<?=HOST?>js/dataTable/jquery.dataTables.min.js"></script>
 
+    <script src="<?=HOST?>js/jquery/jquery.mask.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="<?=HOST?>js/custom.min.js"></script>

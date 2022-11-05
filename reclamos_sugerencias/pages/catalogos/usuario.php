@@ -1,7 +1,7 @@
 <div class="col-md-12 col-sm-12  ">
     <div class="x_panel">
       <div class="x_title">
-        <h2>Tipos de cliente</h2>
+        <h2>Usuarios</h2>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
@@ -12,6 +12,10 @@
               <tr class="headings">
                 <th class="column-title">#</th>
                 <th class="column-title">Nombre</th>
+                <th class="column-title">Usuario</th>
+                <th class="column-title">Correo</th>
+                <th class="column-title">Clave</th>
+                <th class="column-title">Tipo</th>
                 <th class="column-title">Estado</th>
                 <th class="column-title acciones" >Acción</th>
               </tr>
@@ -39,6 +43,31 @@
           <div class="form-group">
             <label for="nombre" class="col-form-label">Nombre:</label>
             <input type="text" required class="form-control" name="nombre">
+          </div>
+          <div class="form-group">
+            <label for="usuario" class="col-form-label">Usuario:</label>
+            <input type="text" required class="form-control" name="usuario">
+          </div>
+          <div class="form-group">
+            <label for="correo" class="col-form-label">Correo:</label>
+            <input type="email" required class="form-control" name="correo">
+          </div>
+          <div class="form-group">
+            <label for="tipo" class="col-form-label">Tipo:</label>
+            <select class="form-control" required name="tipo">
+            <option value="">Seleccione</option>
+              <option value="1">Administrador</option>
+              <option value="2">Encargado/Técnico</option>
+              <option value="3">Usuario final</option>  
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="clave" class="col-form-label">Contraseña:</label>
+            <input type="password" required class="form-control" name="clave" id="clave">
+          </div>
+          <div class="form-group">
+            <label for="clave2" class="col-form-label">Confirmar Contraseña:</label>
+            <input type="password" required class="form-control" name="clave_confirm" id="clave_confirm">
           </div>
       </div>
       <div class="modal-footer">
@@ -68,6 +97,19 @@
             <input type="text" required class="form-control" name="nombre">            
           </div>
           <div class="form-group">
+            <label for="correo" class="col-form-label">Correo:</label>
+            <input type="email" required class="form-control" name="correo">
+          </div>
+          <div class="form-group">
+            <label for="tipo" class="col-form-label">Tipo:</label>
+            <select class="form-control" required name="tipo">
+            <option value="">Seleccione</option>
+              <option value="1">Administrador</option>
+              <option value="2">Encargado/Técnico</option>
+              <option value="3">Usuario final</option>  
+            </select>
+          </div>
+          <div class="form-group">
             <label for="estado" class="col-form-label">Estado:</label>
             <select class="form-control" required name="estado">
               <option value="1">Activo</option>
@@ -86,4 +128,4 @@
 </div>
 <!-- FIN MODAL PARA EDITAR -->
 
-<script src="<?=HOST?>js/pages/tipo_cliente.js"></script>
+<script src="<?=HOST?>js/pages/usuario.js"></script>

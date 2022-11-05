@@ -3,7 +3,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With*');
 header("Content-Type: application/json; charset=UTF-8");
 
-class Usuario extends CI_Controller {
+class Municipio extends CI_Controller {
 
 	function __construct() {
         parent::__construct(); 
@@ -11,7 +11,7 @@ class Usuario extends CI_Controller {
 		if (ob_get_contents()) ob_end_clean(); 
 
 		validar_acceso();
-		$this->load->model('usuario_model','model_catalogo');		
+		$this->load->model('municipio_model','model_catalogo');		
     }
 
 
@@ -20,7 +20,10 @@ class Usuario extends CI_Controller {
 		$peticion = $_SERVER['REQUEST_METHOD'];
 		switch ($peticion) {
 			case 'GET':
-				$this->consultar($id);
+				if($id == 'relations') 
+					$this->relations();
+				else 
+					$this->consultar($id);
 				break;
 			case 'POST':
 				$this->crear();
@@ -41,7 +44,6 @@ class Usuario extends CI_Controller {
 
 	public function consultar($id = null)
 	{	
-
 		$where = null;
 		if($id > 0) {
 			$where['primary_key'] = $id;
@@ -63,31 +65,25 @@ class Usuario extends CI_Controller {
 		}
 
 		$response = [];
-		if(is_array($request) && count($request) > 0  
-			&& isset($request['nombre']) && trim($request['nombre']) != '' 
-			&& isset($request['usuario']) && trim($request['usuario']) != '' 
-			&& isset($request['correo']) && trim($request['correo']) != '' 
-			&& isset($request['clave']) && trim($request['clave']) != '' 
-			) {
-			$q_existe = $this->model_catalogo->consultar(['usuario'=>trim($request['usuario'])]);
-			$q_existe2 = $this->model_catalogo->consultar(['correo'=>trim($request['correo'])]);
-			if($q_existe || $q_existe2) {
+		if(is_array($request) && count($request) > 0  && isset($request['nombre']) && trim($request['nombre']) != '' ) {
+			$q_existe = $this->model_catalogo->consultar(['nombre'=>trim($request['nombre'])], false);
+			if($q_existe) {
 				$response['status'] = "error";
-				$response['result'] = ['msg'=>'Usuario/Correo ya existe'];
+				$response['result'] = ['msg'=>'Nombre ya existe'];
 			} else {
+				
 				$datos_insert['nombre'] 	= $request['nombre'];
-				$datos_insert['usuario'] 	= $request['usuario'];
-				$datos_insert['correo'] 	= $request['correo'];
-				$datos_insert['clave'] 		= password_hash($request['clave'], PASSWORD_DEFAULT); 
-				$datos_insert['tipo']		= (isset($request['tipo']) && $request['tipo'] > 0)? $request['tipo']:3;
 				$datos_insert['estado'] 	= (isset($request['estado']) && $request['estado'] >= 0)? $request['estado']:1;
 				$datos_insert['fecha_crea'] = date('Y-m-d H:i:s');
 				$datos_insert['fecha_mod'] 	= date('Y-m-d H:i:s');
 				$datos_insert['usu_crea'] 	= (isset($request['id_user']) && $request['id_user'] > 0)? $request['id_user']:1;
 				$datos_insert['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:1;
-
-
-
+				
+				$relaciones = $this->model_catalogo->get_config_relations();
+				foreach ($relaciones as $key => $value) {
+					$idTabla = explode('=',$value);
+					$datos_insert[$idTabla[1]] = (isset($request[$idTabla[1]])  && $request[$idTabla[1]] > 0)? $request[$idTabla[1]]:null;
+				}
 				$new = $this->model_catalogo->crear($datos_insert);
 				
 				$response['status'] = "success";
@@ -111,23 +107,24 @@ class Usuario extends CI_Controller {
 		$id = ($id > 0)? $id: (isset($request['id'])? $request['id']:0);
 
 		$response = [];
-		if(is_array($request) && count($request) > 0 
-			&& isset($request['nombre']) && trim($request['nombre']) != '' 
-			&& isset($request['correo']) && trim($request['correo']) != '' 
-			&& $id > 0 ) { 
-			$q_existe = $this->model_catalogo->consultar(['correo'=>trim($request['correo']), 'primary_key !='=>$id]);
+		if(is_array($request) && count($request) > 0  && isset($request['nombre']) && trim($request['nombre']) != '' && $id > 0 ) { 
+			$q_existe = $this->model_catalogo->consultar(['nombre'=>trim($request['nombre']), 'primary_key !='=>$id], false);
 			if($q_existe) {
 				$response['status'] = "error";
-				$response['result'] = ['msg'=>'Correo ya existe'];
+				$response['result'] = ['msg'=>'Nombre ya existe'];
 			} else { 
 				$datos_update['nombre'] 	= $request['nombre'];
-				$datos_update['correo'] 	= $request['correo'];
-				$datos_update['tipo']		= (isset($request['tipo']) && $request['tipo'] > 0)? $request['tipo']:3;
 				$datos_update['estado'] 	= (isset($request['estado']) && $request['estado'] >= 0)? $request['estado']:1;
 				$datos_update['fecha_mod'] 	= date('Y-m-d H:i:s');
 				$datos_update['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:1;
 				$condicion['primary_key'] 			= $id;
-		
+				
+				$relaciones = $this->model_catalogo->get_config_relations();
+				foreach ($relaciones as $key => $value) {
+					$idTabla = explode('=',$value);
+					$datos_update[$idTabla[1]] = (isset($request[$idTabla[1]])  && $request[$idTabla[1]] > 0)? $request[$idTabla[1]]:null;
+				}
+
 				$this->model_catalogo->actualizar($datos_update,$condicion);
 				$response = [];
 				$response['status'] = "success";
@@ -164,4 +161,13 @@ class Usuario extends CI_Controller {
 		
 		die(json_encode($response));
 	}
+
+	public function relations()
+	{	
+		$response = [];
+		$response['status'] = "success";
+		$response['result'] = $this->model_catalogo->get_relations_data();
+		die(json_encode($response));
+	}
+
 }

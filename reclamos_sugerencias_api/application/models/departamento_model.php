@@ -12,7 +12,7 @@ class Departamento_model extends CI_Model
 
  
  	public function consultar($where=null) {
-    $this->db->select("*, $this->table_primary_key id_key")
+ 		$this->db->select("*, $this->table_primary_key id_key")
     ->from($this->table_model);
     if($where) {
       if(isset($where['primary_key'])) {

@@ -1,7 +1,7 @@
 <div class="col-md-12 col-sm-12  ">
     <div class="x_panel">
       <div class="x_title">
-        <h2>Tipos de cliente</h2>
+        <h2>Municipios</h2>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
@@ -12,6 +12,7 @@
               <tr class="headings">
                 <th class="column-title">#</th>
                 <th class="column-title">Nombre</th>
+                <th class="column-title">Departamento</th>
                 <th class="column-title">Estado</th>
                 <th class="column-title acciones" >Acción</th>
               </tr>
@@ -39,6 +40,12 @@
           <div class="form-group">
             <label for="nombre" class="col-form-label">Nombre:</label>
             <input type="text" required class="form-control" name="nombre">
+          </div>
+          <div class="form-group">
+            <label for="departamento_id" class="col-form-label">Departamento:</label>
+            <select class="form-control" required name="departamento_id">
+              <option value="">Seleccione</option>
+            </select>
           </div>
       </div>
       <div class="modal-footer">
@@ -68,6 +75,12 @@
             <input type="text" required class="form-control" name="nombre">            
           </div>
           <div class="form-group">
+            <label for="departamento_id" class="col-form-label">Departamento:</label>
+            <select class="form-control" required name="departamento_id">
+              <option value="">Seleccione</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="estado" class="col-form-label">Estado:</label>
             <select class="form-control" required name="estado">
               <option value="1">Activo</option>
@@ -86,4 +99,4 @@
 </div>
 <!-- FIN MODAL PARA EDITAR -->
 
-<script src="<?=HOST?>js/pages/tipo_cliente.js"></script>
+<script src="<?=HOST?>js/pages/municipio.js"></script>

@@ -84,11 +84,6 @@
     </div>
   </div>
 </div>
-<style>
-  .acciones {
-    text-align: right !important;
-  }
-</style>
 <!-- FIN MODAL PARA EDITAR -->
 
 <script src="<?=HOST?>js/pages/areas_salud.js"></script>

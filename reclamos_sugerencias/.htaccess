@@ -18,9 +18,7 @@ RewriteRule ^(.*)$ $1.php
 RewriteRule ^areas.*$				/reclamos_sugerencias/pages/catalogos/area_salud.php [L]
 RewriteRule ^page/([^/]*)$				/reclamos_sugerencias/master_page.php?page=$1 [L]
 RewriteRule ^procesar_datos/([^/]*)$				/reclamos_sugerencias/config/helpers/procesar.php?service=$1 [L]
-#RewriteRule ^admin/orders.*$						/panel_dev/admin/modules/ecommerce/orders.php [L]
-#RewriteRule ^admin/producto/([^/]*)$				/panel_dev/admin/modules/CMS/product.php?sku=$1 [L]
-#RewriteRule ^admin/print/([^/]*)$					/panel_dev/admin/modules/ecommerce/print.php?orderid=$1 [L]
+
 
 # Prevent SQL injections
 # Prevenzione SQL injections
