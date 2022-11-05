@@ -79,7 +79,7 @@ function agregar() {
                    // position: 'top-end',
                     icon: 'success',
                     title: '!Éxito!',
-                    html: 'Registro ingresado con éxito' + '<b>CASO # '+ response.result.codigo +'</b>',
+                    html: 'Registro ingresado con éxito <br />' + '<b>CASO # '+ response.result.codigo +'</b>',
                     showConfirmButton: true,
                     confirmButtonText: 'Aceptar'
                    // timer: 10000
