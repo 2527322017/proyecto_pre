@@ -23,6 +23,9 @@
     <script src="<?=HOST?>js/jquery/jquery.min.js"></script>
     <script async>(function(w, d) { var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://app.bluecaribu.com/conversion/integration/dc9c7f280cf3e917fa4be626eb97ea93"); h.appendChild(s); })(window, document);</script>
     <link href="<?=HOST?>css/master_page.css" rel="stylesheet">
+    <link href="<?=HOST?>css/kanban/kanban.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="<?=HOST?>js/jquery/kanban.min.js"></script>
 </head>
 
 <body class="nav-md">
@@ -68,15 +71,13 @@
                                     
                                     <?php if(in_array(TYPE_USER,[1,2])) { ?>
                                         <li><a href="<?=HOST?>page/seguimiento_caso">Seguimiento de caso</a></li>
+                                        <li><a href="<?=HOST?>page/board_seguimiento">Tablero de trabajo</a></li>
                                     <?php } ?>
                                     
                                     <?php if(in_array(TYPE_USER,[1,2,3])) { ?>
                                         <li><a href="<?=HOST?>page/consulta_estado">Consultar estado</a></li>
                                     <?php } ?>
-                                    
-                                   
-                                   
-
+                                
                                     </ul>
                                 </li>
                                 <?php if(TYPE_USER == 1) { ?>

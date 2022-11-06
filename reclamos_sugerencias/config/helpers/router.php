@@ -38,6 +38,9 @@ class Router {
       case 'seguimiento_caso':
         $this->include_page = 'pages/reclamos/seguimiento_caso.php';
         break;
+      case 'board_seguimiento':
+        $this->include_page = 'pages/reclamos/board_seguimiento.php';
+        break;
       case 'cliente':
         $this->include_page = 'pages/catalogos/tipo_cliente.php';
         break;      
@@ -104,7 +107,7 @@ class Router {
       $this->page_access = ['all']; //all  = todas
     }
     else if($tipo_usuario == 2) { //tecnico encargado
-      $this->page_access = ['reclamo', 'consulta_estado','seguimiento_caso'];
+      $this->page_access = ['reclamo', 'consulta_estado','seguimiento_caso', 'board_seguimiento'];
     }
     else if($tipo_usuario == 3) { //usuario final
       $this->page_access = ['reclamo', 'consulta_estado'];
