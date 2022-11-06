@@ -61,14 +61,22 @@
                                     <?php if(in_array(TYPE_USER,[1,2,3,4])) { ?>
                                         <li><a href="<?=HOST?>page/reclamo">Nuevo reclamo/sugerencia</a></li>
                                     <?php } ?>
-
-                                    <?php if(in_array(TYPE_USER,[1,2,3])) { ?>
-                                        <li><a href="<?=HOST?>page/consulta_estado">Consultar estado</a></li>
+                                    
+                                    <?php if(in_array(TYPE_USER,[1])) { ?>
+                                        <li><a href="<?=HOST?>page/asignar_caso">Asignación de caso</a></li>
                                     <?php } ?>
-
+                                    
                                     <?php if(in_array(TYPE_USER,[1,2])) { ?>
                                         <li><a href="<?=HOST?>page/seguimiento_caso">Seguimiento de caso</a></li>
                                     <?php } ?>
+                                    
+                                    <?php if(in_array(TYPE_USER,[1,2,3])) { ?>
+                                        <li><a href="<?=HOST?>page/consulta_estado">Consultar estado</a></li>
+                                    <?php } ?>
+                                    
+                                   
+                                   
+
                                     </ul>
                                 </li>
                                 <?php if(TYPE_USER == 1) { ?>

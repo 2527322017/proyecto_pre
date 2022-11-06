@@ -8,12 +8,14 @@ session_start();
     $page = trim($_GET['page']);
  }
  $router = new Router($page);
+ $id_usuario = 0; //default
  $tipo_usuario = 4; //default
  $nombre_usuario = "Invitado"; //default
 //preguntar por la sesion del usuario.
  if(isset($_SESSION['id_user']) && $_SESSION['id_user'] > 0) {
    $tipo_usuario = ($_SESSION['tipo_user'] > 0)? $_SESSION['tipo_user']:0;
    $nombre_usuario = $_SESSION['usuario']['nombre'];
+   $id_usuario = $_SESSION['id_user'];
 }
 
 $router->set_pages_user($tipo_usuario);
@@ -22,6 +24,7 @@ $router->set_pages_user($tipo_usuario);
  define("HOST", $host);
  define("TYPE_USER", $tipo_usuario);
  define("NOMBRE_USUARIO", $nombre_usuario);
+ define("ID_USUARIO", $id_usuario);
 
  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' && $is_page) {
     $path_page = $router->get_path_page();

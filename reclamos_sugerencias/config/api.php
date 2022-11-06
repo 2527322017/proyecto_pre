@@ -19,7 +19,7 @@ class API {
    {
       $data_send = (is_array($data))? json_encode($data):$data;
       $method = ($method)? $method:$_SERVER['REQUEST_METHOD'];
-     
+      //die($this->URL_API  . $this->endPoint . $this->params);
       $curl = curl_init();
       curl_setopt_array($curl, array(
       CURLOPT_URL => $this->URL_API  . $this->endPoint . $this->params,

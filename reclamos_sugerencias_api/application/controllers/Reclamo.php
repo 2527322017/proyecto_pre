@@ -77,6 +77,7 @@ class Reclamo extends CI_Controller {
 				$datos_insert['nombre'] 	= trim($request['nombre']);
 				$datos_insert['apellido'] 	= trim($request['apellido']);
 				$datos_insert['telefono'] 	= trim($request['telefono']);
+				$datos_insert['correo'] 	= trim($request['correo']);
 				$datos_insert['descripcion'] 	= trim($request['descripcion']);
 				$datos_insert['direccion_residencia'] 	= trim($request['direccion_residencia']);
 

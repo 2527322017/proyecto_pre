@@ -3,7 +3,7 @@ var URL_AJAX_RELATION = '/reclamos_sugerencias/procesar_datos/reclamo__relations
 var DATOS_MUNICIPIO = [];
 $(document).ready(function () {
     $("input[name='telefono']").mask('0000-0000', {placeholder: "____-____"});
-    $("input[name='numero_documento']").mask('00000000-0', {placeholder: "________-_"}); //default dui
+    //$("input[name='numero_documento']").mask('00000000-0', {placeholder: "________-_"}); //default dui
     set_relations(); //llenar los selectores relacionados
 
     var validatorAdd = $("#frmAgregar").validate();
@@ -60,6 +60,17 @@ $(document).ready(function () {
         
     });
 
+    $("#frmAgregar select[name='tipo_reg_id']").change(function (e) { 
+        var txtButton = 'Enviar ';
+        var tipo = $(this).val();
+        if(tipo > 0) {
+            texto = $("#frmAgregar select[name='tipo_reg_id'] option[value='"+tipo+"']").text();
+            txtButton += texto;
+        }
+        $("#btnEnviar").text(txtButton);
+
+     });
+
 });
 
 function agregar() {
@@ -79,7 +90,7 @@ function agregar() {
                    // position: 'top-end',
                     icon: 'success',
                     title: '!Éxito!',
-                    html: 'Registro ingresado con éxito <br />' + '<b>CASO # '+ response.result.codigo +'</b>',
+                    html: 'Registro ingresado con éxito <br />' + '<b>CÓDIGO # '+ response.result.codigo +'</b><br /> (Para seguimiento)',
                     showConfirmButton: true,
                     confirmButtonText: 'Aceptar'
                    // timer: 10000
@@ -88,6 +99,7 @@ function agregar() {
                   });
 
                   $("#frmAgregar").trigger("reset");
+                  $("#btnEnviar").text("Enviar");
 
 
             } else {
@@ -120,11 +132,11 @@ function set_relations() {
             loader.close();
             var html_tbody = '';
             if(response.status == 'success') {
-                console.log(response.result);
+                //console.log(response.result);
                 var keys = Object.keys(response.result);
                 var values = Object.values(response.result);
-                console.log(keys);
-                console.log(values);
+                //console.log(keys);
+                //console.log(values);
 
                 keys.forEach(function(relation, indice) {
                    // console.log(relation);

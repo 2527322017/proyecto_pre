@@ -55,7 +55,7 @@ if(isset($_SESSION['id_user']) && $_SESSION['id_user'] > 0) {
               </div>
               <div>
                 <button type="submit" class="btn btn-default submit" style="border: 1px solid gray; width: 100%;" href="masterpage.html">Ingresar</button>
-                <a class="reset_pass"  href="page/nuevo_reclamo">Ingresar Reclamo/Sugerencia (sin sesión)</a>
+                <a class="btn btn-default"  style="border: 1px solid gray; width: 100%;"  href="page/reclamo">Ingresar Reclamo / Sugerencia (sin sesión)</a>
               </div>
 
               <div class="clearfix"></div>

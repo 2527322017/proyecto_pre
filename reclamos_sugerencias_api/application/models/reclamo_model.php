@@ -100,29 +100,45 @@ class Reclamo_model extends CI_Model
     return ($posee > 0)? true:false;
   }
 
-  public function get_relations_data() {
+  public function get_relations_data($tabla_relacionada = null, $where=null) {
     $datos = [];
+
+    if($tabla_relacionada) { //preguntar si se ha indicado una tabla especifica.
+      foreach ($tabla_relacionada as $key => $value) {
+        $idTable = explode('=', $value);
+        $q = $this->db->select("*, $idTable[0] id_key, nombre value")
+              ->from($key)
+              ->where('estado', 1)
+              ;
+        if($where) {
+          $q->where($where);
+        }
+        $datos[$idTable[1]] = $q->get()->result_array();
+      }
+    } else {
+      if(count($this->table_relation_join) > 0) {
+        foreach ($this->table_relation_join as $key => $value) {
+          $idTable = explode('=', $value);
+          $q = $this->db->select("*, $idTable[0] id_key, nombre value")
+                ->from($key)
+                ->where('estado', 1)
+                ->get()->result_array();
+          $datos[$idTable[1]] = $q;
+        }
+      }
+      if(count($this->table_relation_join_left) > 0) {
+        foreach ($this->table_relation_join_left as $key => $value) {
+          $idTable = explode('=', $value);
+          $q = $this->db->select("*, $idTable[0] id_key, nombre value")
+                ->from($key)
+                ->where('estado', 1)
+                ->get()->result_array();
+          $datos[$idTable[1]] = $q;
+        }
+      }
+    }
     
-    if(count($this->table_relation_join) > 0) {
-      foreach ($this->table_relation_join as $key => $value) {
-        $idTable = explode('=', $value);
-        $q = $this->db->select("*, $idTable[0] id_key, nombre value")
-              ->from($key)
-              ->where('estado', 1)
-              ->get()->result_array();
-        $datos[$idTable[1]] = $q;
-      }
-    }
-    if(count($this->table_relation_join_left) > 0) {
-      foreach ($this->table_relation_join_left as $key => $value) {
-        $idTable = explode('=', $value);
-        $q = $this->db->select("*, $idTable[0] id_key, nombre value")
-              ->from($key)
-              ->where('estado', 1)
-              ->get()->result_array();
-        $datos[$idTable[1]] = $q;
-      }
-    }
+
 
     return $datos;
   }

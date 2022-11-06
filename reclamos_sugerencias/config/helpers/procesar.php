@@ -15,10 +15,13 @@
   if($service != '') {
     
     $service = str_replace('__','/',$service);
+
     $API = new API($service);
     //Para usar en editar o eliminar
     $id_registro = (isset($request['id']) && trim($request['id']) != '')? trim($request['id']):'';
     $id_registro = ($id_registro == '' && isset($_GET['id']) && trim($_GET['id']) != '')? trim($_GET['id']):'';
+
+
     if($id_registro != '') {
       $API->set_parametro($id_registro);
     }

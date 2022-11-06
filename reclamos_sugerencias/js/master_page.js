@@ -3,14 +3,23 @@ $(document).ready(function () {
         e.preventDefault();
         var href_page = $(this).attr('href');
         var name_page = $(this).attr('href').split('/').pop();
+        var parentMenu = $(this).parent(); //padre
         window.history.pushState("", "", name_page);
         //loader.open();
-        $( "#main_page").load(href_page, function( response, status, xhr ) {
+        $("#main_page").load(href_page, function( response, status, xhr ) {
             //loader.close();
             if ( status == "error" ) {
               console.log( xhr.status + " " + xhr.statusText );
-            }
+            } 
           });
+
+     setTimeout(function() {
+        $("#sidebar-menu a[href*='reclamos_sugerencias/page/']").parent().removeClass('active');
+        $("#sidebar-menu a[href*='reclamos_sugerencias/page/']").parent().removeClass('current-page');
+        parentMenu.addClass('current-page');
+        parentMenu.addClass('active');
+     }, 500);
+      
     });
 });
 
