@@ -1,6 +1,6 @@
 <div class="page-title">
     <div class="title_left" style="width: 100%;">
-        <h3>Gestión de quejas, reclamos y sugerencias</h3>
+        <h3>Gestión de reclamos y sugerencias</h3>
     </div>
 </div>
 <div class="clearfix"></div>

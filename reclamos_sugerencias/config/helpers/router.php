@@ -56,6 +56,9 @@ class Router {
       case 'usuario':
         $this->include_page = 'pages/catalogos/usuario.php';
         break;
+      case 'consulta_estado':
+        $this->include_page = 'pages/reclamos/consultar_estado.php';
+        break;
       case 'forms':
         $this->include_page = 'pages/system/ej_form.php';
         break;
@@ -100,6 +103,12 @@ class Router {
     $carpeta_proyecto = explode('/', $_SERVER['REDIRECT_URL'])[1];
     $carpeta_proyecto = (trim($carpeta_proyecto) == '')? '': $carpeta_proyecto.'/';
     return $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'] . '/' . $carpeta_proyecto . trim($url);
+  }
+
+  public function carpeta_proyecto() {
+    $carpeta_proyecto = explode('/', $_SERVER['REDIRECT_URL'])[1];
+    $carpeta_proyecto = (trim($carpeta_proyecto) == '')? '/': $carpeta_proyecto.'/';
+    return $carpeta_proyecto;
   }
 
   public function set_pages_user($tipo_usuario) {

@@ -95,6 +95,58 @@ class Reclamo extends CI_Controller {
 					}
 				}
 				$new = $this->model_proceso->crear($datos_insert);
+
+				if(isset($request['archivos']) && count($request['archivos']) > 0 && $new > 0) {
+					$datos_insert_file = [];
+					$datos_insert_file['registro_caso_id'] = $new;
+					$datos_insert_file['estado'] 	= (isset($request['estado']) && $request['estado'] >= 0)? $request['estado']:1;
+					$datos_insert_file['fecha_crea']= date('Y-m-d H:i:s');
+					$datos_insert_file['fecha_mod'] = date('Y-m-d H:i:s');
+					$datos_insert_file['usu_crea'] 	= (isset($request['id_user']) && $request['id_user'] > 0)? $request['id_user']:1;
+					$datos_insert_file['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:1;
+					foreach ($request['archivos'] as $f) {
+						$datos_insert_file['nombre'] = trim($f['nombre']);
+						$datos_insert_file['ruta'] = trim($f['ruta']);
+						$datos_insert_file['peso'] = ($f['peso'] > 0)? $f['peso']:0;
+						$datos_insert_file['extension'] = trim($f['extension']);
+						if(trim($f['ruta']) != '') {
+							$adjunto = $this->model_proceso->insertar_archivo($datos_insert_file);
+						}
+						
+					}
+				}
+
+				$msj_estado = "Tu caso se encuentra en proceso";
+
+				//enviar sms
+				$response['sms'] = 'Problemas en notificar via SMS';
+				if(trim($datos_insert['telefono']) != '') {
+					$msg_sms = 'Sistema de reclamos: Caso: '.$datos_insert['codigo']. ', ' . $msj_estado;
+					$response['sms'] = sendSMS($datos_insert['telefono'], $msg_sms);
+				}
+
+				//enviar mail
+				$response['mail'] = 'Problemas en notificar via Correo';
+				if(trim($datos_insert['correo']) != '') {
+					$nombrePersona = ucwords(strtolower($datos_insert['nombre'] . ' ' . $datos_insert['apellido']));
+					$datos = [];
+					$datos['nombre_persona'] = $nombrePersona;
+					$datos['mensaje_estado'] = $msj_estado;
+					$datos['codigo'] = $datos_insert['codigo'];
+					
+					if(false) {
+						//$this->load->model('usuario_model');
+						//$html_usuario = '<b>Usuario:</b> ' . $datos_insert['correo'];
+						//$html_usuario .= '<br /><b>Clave:</b> ' . $datos_insert['correo'];
+						//$datos['msg_seguimiento'] = $html_usuario;	
+					}
+					
+
+					$html_template = $this->load->view('template_mail', $datos, true);
+					$response['mail'] = sendMail($reg_caso['correo'], $nombrePersona, $html_template);
+				}
+
+
 				
 				$response['status'] = "success";
 				$response['result'] = ['id'=>$new,'codigo'=>$datos_insert['codigo']];

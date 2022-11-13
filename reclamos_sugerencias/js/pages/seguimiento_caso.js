@@ -1,5 +1,5 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/seguimiento_reclamo';
-var URL_AJAX_RELATION = '/reclamos_sugerencias/procesar_datos/seguimiento_reclamo__relations';
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/seguimiento_reclamo';
+var URL_AJAX_RELATION = proyecto_carpeta + 'procesar_datos/seguimiento_reclamo__relations';
 
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina

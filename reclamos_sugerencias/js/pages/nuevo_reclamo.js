@@ -1,5 +1,5 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/reclamo';
-var URL_AJAX_RELATION = '/reclamos_sugerencias/procesar_datos/reclamo__relations';
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/reclamo';
+var URL_AJAX_RELATION = proyecto_carpeta + 'procesar_datos/reclamo__relations';
 var DATOS_MUNICIPIO = [];
 $(document).ready(function () {
     $("input[name='telefono']").mask('0000-0000', {placeholder: "____-____"});
@@ -7,6 +7,8 @@ $(document).ready(function () {
     set_relations(); //llenar los selectores relacionados
 
     var validatorAdd = $("#frmAgregar").validate();
+
+    $('#frmAgregar').captcha(); //aplicar captcha
 
     $("#frmAgregar").submit(function(e) {
         e.preventDefault();
@@ -60,25 +62,64 @@ $(document).ready(function () {
         
     });
 
+    configurar_requeridos(0);
+    
     $("#frmAgregar select[name='tipo_reg_id']").change(function (e) { 
         var txtButton = 'Enviar ';
+        var txtTitle = 'Registro ';
         var tipo = $(this).val();
+        var aplica_requeridos = 0;
         if(tipo > 0) {
             texto = $("#frmAgregar select[name='tipo_reg_id'] option[value='"+tipo+"']").text();
             txtButton += texto;
+            txtTitle = texto;
+
+            aplica_requeridos = $("#frmAgregar select[name='tipo_reg_id'] option[value='"+tipo+"']").attr('data_extra');
         }
+        
         $("#btnEnviar").text(txtButton);
+        $("#btnEnviar").val(txtButton);
+        $("#lblTitleDetalle").text(txtTitle);
+
+
+        configurar_requeridos(aplica_requeridos);
+
 
      });
 
 });
 
+
+function configurar_requeridos(aplica_req) {
+    if(parseInt(aplica_req) == 1) {
+        $('.codicionante_requerido').show('slow');
+        $(".codicionante_requerido").find('select').attr('required',true);
+        $(".codicionante_requerido").find('input').attr('required',true);
+
+
+        $(".codicionante_opcional").find('.fa-asterisk').show();
+        $(".codicionante_opcional").find('input').attr('required',true);
+    } else {
+        $('.codicionante_requerido').hide('slow');
+        $(".codicionante_requerido").find('select').removeAttr('required');
+        $(".codicionante_requerido").find('input').removeAttr('required');
+
+        $(".codicionante_opcional").find('.fa-asterisk').hide();
+        $(".codicionante_opcional").find('input').removeAttr('required');
+    }
+}
+
 function agregar() {
+    var formData = new FormData($("#frmAgregar")[0]);
     $.ajax({
         type: "POST",
         url: URL_AJAX,
         dataType: "json",
-        data: $("#frmAgregar").serialize(),
+        data: formData,
+        cache: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        processData: false,
         beforeSend: function() {
             loader.open();
         },
@@ -95,11 +136,13 @@ function agregar() {
                     confirmButtonText: 'Aceptar'
                    // timer: 10000
                   }).then((result) => {
-
+                    location.href = location.href;
                   });
 
                   $("#frmAgregar").trigger("reset");
                   $("#btnEnviar").text("Enviar");
+                  $("#btnEnviar").val("Enviar");
+                  $("#lblTitleDetalle").text("Registro");
 
 
             } else {
@@ -144,7 +187,8 @@ function set_relations() {
                     var html_option = '<option value="">Seleccione</option>';
                     if(values[indice].length > 0) {
                         values[indice].forEach(function(data, indice2) { 
-                            html_option += '<option value="'+data.id_key+'">'+data.value+'</option>';
+                            extra_field = (data.data_extra != '')? 'data_extra="'+data.data_extra+'" ':'';
+                            html_option += '<option value="'+data.id_key+'" '+extra_field+' >'+data.value+'</option>';
                         });
                     }
 

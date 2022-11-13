@@ -1,5 +1,6 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/asignar_reclamo';
-var URL_AJAX_RELATION = '/reclamos_sugerencias/procesar_datos/asignar_reclamo__relations';
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/asignar_reclamo';
+var URL_AJAX_RELATION = proyecto_carpeta + 'procesar_datos/asignar_reclamo__relations';
+var URL_AJAX_DETALLE = proyecto_carpeta + 'procesar_datos/seguimiento_reclamo__get_detalle';
 
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina
@@ -68,7 +69,8 @@ function consultar() {
                                  //establecer las relaciones del registro
                                 html_tbody += `<textarea style="display:none;" data-field="descripcion">${registro.descripcion}</textarea>`;
 
-                                html_tbody += `<button type="button" class="btn btn-info btnEditar" data-id="${registro.id_key}" >Asignar</button>
+                                html_tbody += `<button type="button" class="btn btn-info" onclick="ver_detalle(${registro.id_key});"  data-id="${registro.id_key}" >Detalle</button>
+                                <button type="button" class="btn btn-info btnEditar" data-id="${registro.id_key}" >Asignar</button>
                                 </td>
                              </tr>`;
                 });
@@ -215,4 +217,103 @@ function set_relations() {
            loader.close();
         }
     });
+}
+
+
+
+function ver_detalle(id_caso) {
+    $.ajax({
+        type: "POST",
+        url: URL_AJAX_DETALLE,
+        dataType: "json",
+        data: {id:id_caso},
+        beforeSend: function() {
+            loader.open('',true);
+        },
+        success: function (response) {
+            loader.close();
+            registro_caso = response.result.registro;
+            archivos_caso = response.result.archivos;
+            seguimiento_caso = response.result.seguimiento;
+
+            $(".lblTitle").text(registro_caso.tipo_registro);
+            $(".lblTitle").text(registro_caso.tipo_registro);
+
+            $("#modalInfo .td_info_nombre").html(registro_caso.nombre + ' ' + registro_caso.apellido);
+            $("#modalInfo .td_info_documento").html(registro_caso.tipo_documento + ' ' + registro_caso.numero_documento);
+            $("#modalInfo .td_info_correo").html(registro_caso.correo);
+            $("#modalInfo .td_info_telefono").html(registro_caso.telefono);
+            $("#modalInfo .td_info_genero").html(registro_caso.genero);
+            direccion = (registro_caso.direccion_residencia == '')? '':registro_caso.direccion_residencia + ', ' + registro_caso.municipio + ', ' + registro_caso.departamento; 
+            $("#modalInfo .td_info_direccion").html(direccion);
+            $("#modalInfo .td_info_tipo_cliente").html(registro_caso.tipo_cliente);
+            $("#modalInfo .td_info_area_salud").html(registro_caso.area_salud);
+            $("#modalInfo .td_info_descripcion_caso").html(registro_caso.descripcion);
+
+            if(archivos_caso.length > 0) {
+                const array_type_img = ['png', 'jpeg', 'jpg', 'gif', 'bmp', 'tif'];
+                var html_archivos = '<tr><td><div class="row">';
+                archivos_caso.forEach(function(registro, indice) {
+                    etiqueta_archivo = '';
+                    if(array_type_img.includes(registro.extension)) {
+                        etiqueta_archivo = `
+                        <div class="col-md-4" style="text-align: center;">
+                        <a
+                        data-fancybox="gallery"
+                        href="${proyecto_host}${registro.ruta}"
+                        data-caption="${registro.nombre}"
+                      >
+                        <img src="${proyecto_host}${registro.ruta}"  height="100px"/>
+                      </a>
+                      </div>
+                        `;
+                    } else {
+                        etiqueta_archivo = `
+                        <div class="col-md-4" style="text-align: center;">
+                        <a target="_blank" title="${registro.nombre}"
+                        href="${proyecto_host}${registro.ruta}"
+                        >
+                        <img src="${proyecto_host}images/fileicon.png"  height="60px" title="${registro.nombre}"/>
+                      </a>
+                      </div>
+                        `; 
+                    }
+                    /*
+                    html_archivos += `<div class="col-md-4" style="text-align: center;">
+                    ${etiqueta_archivo}
+                    </div>`;
+                    */
+                    html_archivos += etiqueta_archivo;
+                 });
+                 html_archivos += `</div></td></tr>`;
+                 $("#tbodyArchivos").html(html_archivos);
+            } else {
+                $("#tbodyArchivos").html('<tr><td>Sin registros</td></tr>');
+            }
+
+            if(seguimiento_caso.length > 0) {
+                var html_seguimiento = '';
+                seguimiento_caso.forEach(function(registro, indice) {
+                    html_seguimiento += `<tr>
+                    <td>${registro.fecha_registro}</td>
+                    <td>${registro.comentario}</td>
+                    <td>${registro.tipo_resolucion}</td>
+                    <td>${registro.nombre_usuario}</td>
+                </tr>`;
+                 });
+                 $("#tbodySeguimiento").html(html_seguimiento);
+            } else {
+                $("#tbodySeguimiento").html('<tr><td colspan="4">Sin registros</td></tr>');
+            }
+
+
+            $("#modalInfo").modal();
+            loadFancybox();
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+           console.log(textStatus);
+           loader.close();
+        }
+    });
+   
 }

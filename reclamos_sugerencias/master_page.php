@@ -19,13 +19,20 @@
     <!-- Custom Theme Style -->
     <link href="<?=HOST?>css/custom.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="<?=HOST?>js/fancybox/fancybox.css" />
+
     <!-- jQuery -->
     <script src="<?=HOST?>js/jquery/jquery.min.js"></script>
-    <script async>(function(w, d) { var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://app.bluecaribu.com/conversion/integration/dc9c7f280cf3e917fa4be626eb97ea93"); h.appendChild(s); })(window, document);</script>
     <link href="<?=HOST?>css/master_page.css" rel="stylesheet">
     <link href="<?=HOST?>css/kanban/kanban.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="<?=HOST?>js/jquery/jquery-ui.min.js"></script>
     <script type="text/javascript" src="<?=HOST?>js/jquery/kanban.min.js"></script>
+    <script type="text/javascript" src="<?=HOST?>js/fancybox/fancybox.umd.js"></script>
+    <script src="<?=HOST?>js/jquery/jquery.captcha.basic.min.js"></script>
+    <script>
+        var proyecto_carpeta = "/<?=CARPETA_PROYECTO?>";
+        var proyecto_host = "<?=HOST?>";
+    </script>
 </head>
 
 <body class="nav-md">
@@ -70,7 +77,7 @@
                                     <?php } ?>
                                     
                                     <?php if(in_array(TYPE_USER,[1,2])) { ?>
-                                        <li><a href="<?=HOST?>page/seguimiento_caso">Seguimiento de caso</a></li>
+                                        <li style="display:none;" ><a href="<?=HOST?>page/seguimiento_caso">Seguimiento de caso</a></li>
                                         <li><a href="<?=HOST?>page/board_seguimiento">Tablero de trabajo</a></li>
                                     <?php } ?>
                                     
@@ -130,6 +137,7 @@
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <nav class="nav navbar-nav">
+                    <div class="headerTitle">Hospital Especializado Rosales</div>
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">

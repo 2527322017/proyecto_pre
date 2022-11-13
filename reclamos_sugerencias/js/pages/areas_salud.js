@@ -1,4 +1,4 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/areas_salud';
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/areas_salud';
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina
 

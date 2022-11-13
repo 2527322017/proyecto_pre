@@ -1,13 +1,39 @@
+<script async>(function(w, d) { var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://app.bluecaribu.com/conversion/integration/dc9c7f280cf3e917fa4be626eb97ea93"); h.appendChild(s); })(window, document);</script>
+    
 <div class="row">
     <div class="col-md-12 col-sm-12 ">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Registro y gestión de reclamos y/o sugerencias</h2>
+                <h2>Registro de reclamos y sugerencias</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <br />
                 <form id="frmAgregar" autocomplete="off" data-parsley-validate class="form-horizontal form-label-left">
+
+                <div  class="col-md-12 col-sm-12">
+                    <div class="x_title">
+                        <h2>Tipo de registro</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            <div  class="col-md-12 col-sm-12">
+                <div class="col-md-6">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
+                                class="fa fa-asterisk" style='color: red'></i> Tipo</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <select name="tipo_reg_id" class="form-control" required>
+                                <option value="">Cargando...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+
+
+
                 <div  class="col-md-12 col-sm-12">
                     <div class="x_title">
                         <h2>Datos de Identificación</h2>
@@ -38,34 +64,7 @@
                 </div>
             </div>
 
-            <div  class="col-md-12 col-sm-12">
-                <div class="col-md-6">
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
-                                class="fa fa-asterisk" style='color: red'></i> Tipo de documento</label>
-                        <div class="col-md-9 col-sm-9 ">
-                            <select name="tipo_doc_id" class="form-control" required>
-                                <option value="">Cargando...</option>
-                                <option value="press">Press</option>
-                                <option value="net">Internet</option>
-                                <option value="mouth">Word of mouth</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
-                                class="fa fa-asterisk" style='color: red'></i> N° de documento</label>
-                        <div class="col-md-9 col-sm-9 ">
-                            <input type="text" name="numero_documento" required="required" class="form-control">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div  class="col-md-12 col-sm-12">
+            <div  class="col-md-12 col-sm-12 codicionante_opcional">
                 <div class="col-md-6">
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
@@ -88,6 +87,31 @@
                 </div>
             </div>
 
+
+            <div  class="col-md-12 col-sm-12 codicionante_requerido">
+                <div class="col-md-6">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
+                                class="fa fa-asterisk" style='color: red'></i> Tipo de documento</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <select name="tipo_doc_id" class="form-control" required>
+                                <option value="">Cargando...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
+                                class="fa fa-asterisk" style='color: red'></i> N° de documento</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <input type="text" name="numero_documento" required="required" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
                 
             <div  class="col-md-12 col-sm-12">
                 <div class="col-md-6">
@@ -97,25 +121,19 @@
                         <div class="col-md-9 col-sm-9 ">
                             <select  name="genero_id" class="form-control" required>
                                 <option value="">Cargando...</option>
-                                <option value="press">Press</option>
-                                <option value="net">Internet</option>
-                                <option value="mouth">Word of mouth</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
 
-                <div class="col-md-6">
+                <div class="col-md-6 codicionante_requerido">
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Departamento residencia</label>
                         <div class="col-md-9 col-sm-9 ">
                             <select  name="departamento_id" class="form-control" required>
                                 <option value="">Cargando...</option>
-                                <option value="press">Press</option>
-                                <option value="net">Internet</option>
-                                <option value="mouth">Word of mouth</option>
                             </select>
                         </div>
                     </div>
@@ -123,7 +141,7 @@
             </div>   
             
             
-            <div  class="col-md-12 col-sm-12">
+            <div  class="col-md-12 col-sm-12 codicionante_requerido">
                 <div class="col-md-6">
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
@@ -131,9 +149,6 @@
                         <div class="col-md-9 col-sm-9 ">
                             <select name="municipio_id" class="form-control" required>
                                 <option value="">Cargando...</option>
-                                <option value="press">Press</option>
-                                <option value="net">Internet</option>
-                                <option value="mouth">Word of mouth</option>
                             </select>
                         </div>
                     </div>
@@ -160,25 +175,11 @@
 
                 <div  class="col-md-12 col-sm-12">
                     <div class="x_title">
-                        <h2>Datos de Reclamo / Sugerencia</h2>
+                        <h2>Datos de <label id="lblTitleDetalle" style="text-transform:capitalize;">Registro</label> </h2>
                         <div class="clearfix"></div>
                     </div>
                 </div>
-
-                <div class="col-md-6">
-                    <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
-                                class="fa fa-asterisk" style='color: red'></i> Tipo de registro</label>
-                        <div class="col-md-9 col-sm-9 ">
-                            <select name="tipo_reg_id" class="form-control" required>
-                                <option value="">Cargando...</option>
-                                <option value="press">Press</option>
-                                <option value="net">Internet</option>
-                                <option value="mouth">Word of mouth</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>   
+ 
 
                 <div class="col-md-6">
                     <div class="item form-group">
@@ -187,9 +188,6 @@
                         <div class="col-md-9 col-sm-9 ">
                             <select name="tipo_cli_id" class="form-control" required>
                                 <option value="">Cargando...</option>
-                                <option value="press">Press</option>
-                                <option value="net">Internet</option>
-                                <option value="mouth">Word of mouth</option>
                             </select>
                         </div>
                     </div>
@@ -204,9 +202,6 @@
                         <div class="col-md-9 col-sm-9 ">
                             <select name="area_sal_id" class="form-control" required>
                                 <option value="">Cargando...</option>
-                                <option value="press">Press</option>
-                                <option value="net">Internet</option>
-                                <option value="mouth">Word of mouth</option>
                             </select>
                         </div>
                     </div>
@@ -237,7 +232,9 @@
                         <label class="col-sm-2 control-label label-align" >
                             Adjuntar archivos</label>
                         <div class="col-sm-10">
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        <input class="form-control" type="file" id="adjuntar_archivos"  
+                         name="adjuntar_archivos[]" accept="image/*,audio/*,video/*,.pdf"  multiple> 
+                        <!-- <input type="text" id="adjuntar_archivos" name="adjuntar_archivos" value=""> -->
                         </div>
                     </div>
                 </div>
@@ -246,7 +243,7 @@
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button type="submit" class="btn btn-success" id="btnEnviar">Enviar  </button>
+                            <input type="submit" class="btn btn-success" id="btnEnviar" value="Enviar">
                         </div>
                     </div>
                 </div>
@@ -256,6 +253,49 @@
         </div>
     </div>
 </div>
+<style>
+#captchaInput {
+    width: 50px;
+    margin-right: 10px;
+}
+</style>
 
 <!-- MODAL PARA ENVIAR -->
 <script src="<?=HOST?>js/pages/nuevo_reclamo.js"></script>
+<link href="<?=HOST?>js/uploader/jquery.uploader.css" rel="stylesheet">
+<script src="<?=HOST?>js/uploader/jquery.uploader.min.js"></script>
+
+<link href="<?=HOST?>js/uploader2/imageuploadify.min.css" rel="stylesheet">
+<script src="<?=HOST?>js/uploader2/imageuploadify.min.js"></script>
+
+<script type="application/javascript">
+    $(document).ready(function() {
+           /* $('#adjuntar_archivos').imageuploadify();
+            setTimeout(() => {
+                $(".imageuploadify-message").text('Arrastrar y soltar tus archivos aqui');
+                $(".imageuploadify-images-list button:first").text('o selecciona el archivo a cargar');
+            }, 200);
+            */
+        })
+  /*
+  let ajaxConfig = {
+        ajaxRequester: function (config, uploadFile, pCall, sCall, eCall) {
+            let progress = 0
+            let interval = setInterval(() => {
+                progress += 10;
+                pCall(progress)
+                if (progress >= 100) {
+                    clearInterval(interval)
+                    const windowURL = window.URL || window.webkitURL;
+                    sCall({
+                        data: windowURL.createObjectURL(uploadFile.file)
+                    })
+                    console.log(uploadFile.file);
+                     eCall("hola")
+                }
+            }, 300)
+        }
+    }
+    $("#adjuntar_archivos").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: true})
+*/
+</script>

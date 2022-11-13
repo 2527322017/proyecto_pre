@@ -47,7 +47,7 @@
             <label for="nombre" class="col-form-label">Código #:</label>
             <input type="text" readonly required class="form-control" name="codigo">            
           </div>
-          <div class="form-group">
+          <div class="form-group" style="display:none;">
             <label for="nombre" class="col-form-label">Detalle:</label>
             <textarea rows="5" id="txtDetalle" style="width: 100%;" readonly></textarea>          
           </div>
@@ -68,5 +68,118 @@
   </div>
 </div>
 <!-- FIN MODAL PARA EDITAR -->
+
+<div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitleLabel" aria-hidden="true" >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+            <h3>Datos <b class="lblTitle"></b></h3>
+          </div>
+          <div class="modal-body" style="max-height:500px; overflow:auto;">
+            <div class="row">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th colspan="2" style="text-transform: uppercase;">Datos de Identificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th width="25%">Nombre</th>
+                <td class="td_info_nombre"></td>
+                </tr>
+                <tr>
+                <th>Documento</th>
+                <td class="td_info_documento"></td>
+                </tr>
+                <tr>
+                <th>Correo</th>
+                <td class="td_info_correo"></td>
+                </tr>
+                <tr>
+                <th>Teléfono</th>
+                <td class="td_info_telefono"></td>
+                </tr>
+                <tr>
+                <th>G&eacute;nero</th>
+                <td class="td_info_genero"></td>
+                </tr>
+                <tr>
+                <th>Dirección Residencia</th>
+                <td class="td_info_direccion"></td>
+                </tr>
+            </tbody>
+            </table>
+            </div>
+
+            <div class="row">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th colspan="2"  style="text-transform: uppercase;">Datos de <span class="lblTitle"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th width="25%">Tipo cliente</th>
+                <td class="td_info_tipo_cliente"></td>
+                </tr>
+                <tr>
+                <th>Área de salud</th>
+                <td class="td_info_area_salud"></td>
+                </tr>
+                <tr>
+                <th>Descripción</th>
+                <td class="td_info_descripcion_caso"></td>
+                </tr>
+            </tbody>
+            </table>
+            </div>
+
+            <div class="row">
+            <table width="100%" class="table table-bordered">
+            <thead>
+                <tr>
+                <th style="text-transform: uppercase;">Archivos</th>
+                </tr>
+            </thead>
+            <tbody  id="tbodyArchivos">
+            </tbody>
+            </table>
+            </div>
+
+            <div class="row">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th colspan="4"  style="text-transform: uppercase;">Seguimiento de caso</th>
+                </tr>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Comentario</th>
+                    <th>Resolución</th>
+                    <th>Técnico / Encargado</th>
+                </tr>
+            </thead>
+            <tbody id="tbodySeguimiento">
+
+            </tbody>
+            </table>
+            </div>
+
+
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    td.acciones button{
+      width: 100%;
+    }
+  </style>
 
 <script src="<?=HOST?>js/pages/asignar_caso.js"></script>

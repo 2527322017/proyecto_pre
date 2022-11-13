@@ -64,7 +64,7 @@ if(isset($_SESSION['id_user']) && $_SESSION['id_user'] > 0) {
                 <br />
                 <div>
                   <h1><i class="fa fa-book"></i> Reclamos / Sugerencias</h1>
-                  <p>©2022 Todos los derechos reservados.</p>
+                  <p>©<?=date('Y')?> Todos los derechos reservados.</p>
                 </div>
               </div>
             </form>

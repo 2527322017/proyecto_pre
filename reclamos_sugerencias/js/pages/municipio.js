@@ -1,5 +1,5 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/municipio';
-var URL_AJAX_RELATION = '/reclamos_sugerencias/procesar_datos/municipio__relations';
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/municipio';
+var URL_AJAX_RELATION = proyecto_carpeta + 'procesar_datos/municipio__relations';
 
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina

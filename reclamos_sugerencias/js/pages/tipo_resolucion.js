@@ -1,4 +1,4 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/tipo_resolucion';
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/tipo_resolucion';
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina
 

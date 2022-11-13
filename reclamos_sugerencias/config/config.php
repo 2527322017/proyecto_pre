@@ -18,13 +18,16 @@ session_start();
    $id_usuario = $_SESSION['id_user'];
 }
 
-$router->set_pages_user($tipo_usuario);
+ $router->set_pages_user($tipo_usuario);
 
  $host = $router->base_url();
+ $carpeta = $router->carpeta_proyecto();
+
  define("HOST", $host);
  define("TYPE_USER", $tipo_usuario);
  define("NOMBRE_USUARIO", $nombre_usuario);
  define("ID_USUARIO", $id_usuario);
+ define("CARPETA_PROYECTO",$carpeta);
 
  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' && $is_page) {
     $path_page = $router->get_path_page();

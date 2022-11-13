@@ -1,4 +1,4 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/departamento';
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/departamento';
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina
 

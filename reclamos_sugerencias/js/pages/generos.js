@@ -1,4 +1,4 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/genero';
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/genero';
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina
 

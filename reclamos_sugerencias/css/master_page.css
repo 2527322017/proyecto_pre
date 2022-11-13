@@ -4,3 +4,9 @@
 label.error {
   color:red;
 }
+
+.headerTitle {
+  position: absolute;
+  margin-top: 16px;
+  font-size: 16px;
+}

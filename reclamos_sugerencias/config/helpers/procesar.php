@@ -8,6 +8,39 @@
     parse_str(file_get_contents('php://input'),$data);
   }
   $request = (count($_POST) > 0)? $_POST:$data;
+
+  if(isset($_FILES) && count($_FILES) > 0) {
+      // Count the number of uploaded files in array
+      $total_count = count($_FILES['adjuntar_archivos']['name']);
+      // Loop through every file
+      $n_archivos = [];
+      for( $i=0 ; $i < $total_count ; $i++ ) {
+        //The temp file path is obtained
+        $tmpFilePath = $_FILES['adjuntar_archivos']['tmp_name'][$i];
+        //A file path needs to be present
+        if ($tmpFilePath != ""){
+            //Setup our new file path
+            $nameFile = str_replace(' ', '_', preg_replace('([^A-Za-z0-9 .])', '', $_FILES['adjuntar_archivos']['name'][$i]));
+            $newFilePath = "../../uploads/" . $nameFile;
+            $fileSize = filesize($tmpFilePath);
+            //File is uploaded to temp dir
+            if(@move_uploaded_file($tmpFilePath, $newFilePath)) {
+              $n_archivos[] = array(
+                'nombre' => $nameFile,
+                'ruta' => "uploads/" . $nameFile,
+                'peso' => ($fileSize > 0)? $fileSize:0,
+                'extension' => end(explode('.', $nameFile)),
+              );
+            }
+
+        }
+
+      }
+      if(count($n_archivos) > 0) {
+        $request['archivos'] = $n_archivos;
+      }
+  }
+  //print_r($request);    print_r($_FILES); die();
   $service = (isset($request['service']) && trim($request['service']) != '')? trim($request['service']):'';
   $service = ($service == '' && isset($_GET['service']) && trim($_GET['service']) != '')? trim($_GET['service']):'';
  

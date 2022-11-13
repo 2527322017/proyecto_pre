@@ -1,0 +1,5 @@
+ALTER TABLE `registro_caso`
+ADD COLUMN `orden_tablero`  int(11) NULL DEFAULT NULL COMMENT 'Orden en el tablero de seguimiento' AFTER `direccion_residencia`;
+
+ALTER TABLE `tipo_registro`
+ADD COLUMN `identificacion_completa`  int(11) NULL DEFAULT 1 COMMENT 'Solicitar la identificacion completa en el registro' AFTER `usu_mod`;
