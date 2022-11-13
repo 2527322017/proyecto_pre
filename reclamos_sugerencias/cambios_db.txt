@@ -1,0 +1,12 @@
+ALTER TABLE `registro_caso`
+ADD COLUMN `orden_tablero`  int(11) NULL DEFAULT NULL COMMENT 'Orden en el tablero de seguimiento' AFTER `direccion_residencia`;
+
+ALTER TABLE `tipo_registro`
+ADD COLUMN `identificacion_completa`  int(11) NULL DEFAULT 1 COMMENT 'Solicitar la identificacion completa en el registro' AFTER `usu_mod`;
+
+
+ALTER TABLE `registro_caso`
+ADD COLUMN `usuario_cliente_id`  int(11) NULL DEFAULT NULL COMMENT 'Id usuario del cliente, cuado el registro se realice con sesión de usuario tipo cliente' AFTER `usuario_id`,
+ADD INDEX `usuario_cliente_id` (`usuario_cliente_id`) USING BTREE ;
+ALTER TABLE `registro_caso` ADD CONSTRAINT `fk_usuario_cliente_id` FOREIGN KEY (`usuario_cliente_id`) REFERENCES `usuarios` (`id_usuario`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
