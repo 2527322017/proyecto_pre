@@ -28,6 +28,7 @@ session_start();
  define("NOMBRE_USUARIO", $nombre_usuario);
  define("ID_USUARIO", $id_usuario);
  define("CARPETA_PROYECTO",$carpeta);
+ define("IS_LOGIN", ($id_usuario? 1:0));
 
  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' && $is_page) {
     $path_page = $router->get_path_page();

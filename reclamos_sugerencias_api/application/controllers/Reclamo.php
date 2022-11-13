@@ -143,7 +143,7 @@ class Reclamo extends CI_Controller {
 					
 
 					$html_template = $this->load->view('template_mail', $datos, true);
-					$response['mail'] = sendMail($reg_caso['correo'], $nombrePersona, $html_template);
+					$response['mail'] = sendMail($datos_insert['correo'], $nombrePersona, $html_template);
 				}
 
 

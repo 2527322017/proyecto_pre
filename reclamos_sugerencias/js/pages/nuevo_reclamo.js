@@ -7,8 +7,10 @@ $(document).ready(function () {
     set_relations(); //llenar los selectores relacionados
 
     var validatorAdd = $("#frmAgregar").validate();
-
-    $('#frmAgregar').captcha(); //aplicar captcha
+    if(is_login == 0) {
+        $('#frmAgregar').captcha(); //aplicar captcha
+    }
+    
 
     $("#frmAgregar").submit(function(e) {
         e.preventDefault();

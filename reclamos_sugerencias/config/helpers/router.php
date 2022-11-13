@@ -122,7 +122,7 @@ class Router {
       $this->page_access = ['reclamo', 'consulta_estado'];
     } 
     else if($tipo_usuario == 4) { //usuario sin session
-      $this->page_access = ['reclamo'];
+      $this->page_access = ['reclamo', 'consulta_estado'];
     }  else {
       $this->page_access = ['no_acess'];
     }

@@ -23,13 +23,14 @@
             $nameFile = str_replace(' ', '_', preg_replace('([^A-Za-z0-9 .])', '', $_FILES['adjuntar_archivos']['name'][$i]));
             $newFilePath = "../../uploads/" . $nameFile;
             $fileSize = filesize($tmpFilePath);
+            $array_extension = explode('.', $nameFile);
             //File is uploaded to temp dir
             if(@move_uploaded_file($tmpFilePath, $newFilePath)) {
               $n_archivos[] = array(
                 'nombre' => $nameFile,
                 'ruta' => "uploads/" . $nameFile,
                 'peso' => ($fileSize > 0)? $fileSize:0,
-                'extension' => end(explode('.', $nameFile)),
+                'extension' => end($array_extension),
               );
             }
 

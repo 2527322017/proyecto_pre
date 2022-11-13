@@ -24,9 +24,10 @@ function sendSMS($telefono="", $mensaje="")
     if($telefono == '' || $mensaje == '' ) {
         return ['error'=>'campos requeridos, SMS no enviado'];
     }
+    //https://apismsrene.herokuapp.com/api/notificaciones
     $curl = curl_init();
     curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://apismsrene.herokuapp.com/api/notificaciones',
+    CURLOPT_URL => 'https://apimensajes.herokuapp.com/api/mensajes',
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => '',
     CURLOPT_MAXREDIRS => 10,

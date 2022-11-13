@@ -32,6 +32,8 @@
     <script>
         var proyecto_carpeta = "/<?=CARPETA_PROYECTO?>";
         var proyecto_host = "<?=HOST?>";
+        var is_login = <?=IS_LOGIN?>;
+        var type_user = <?=TYPE_USER?>;
     </script>
 </head>
 
@@ -81,7 +83,7 @@
                                         <li><a href="<?=HOST?>page/board_seguimiento">Tablero de trabajo</a></li>
                                     <?php } ?>
                                     
-                                    <?php if(in_array(TYPE_USER,[1,2,3])) { ?>
+                                    <?php if(in_array(TYPE_USER,[1,2,3,4])) { ?>
                                         <li><a href="<?=HOST?>page/consulta_estado">Consultar estado</a></li>
                                     <?php } ?>
                                 

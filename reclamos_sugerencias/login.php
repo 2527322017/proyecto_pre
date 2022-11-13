@@ -48,10 +48,10 @@ if(isset($_SESSION['id_user']) && $_SESSION['id_user'] > 0) {
             <form method="POST" id="frmLogin">
               <h1>Iniciar Sesión</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Usuario" name="usuario" required="" />
+                <input type="text" class="form-control" placeholder="Usuario" name="usuario" required />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Contraseña" name="clave" required="" />
+                <input type="password" class="form-control" placeholder="Contraseña" name="clave" required />
               </div>
               <div>
                 <button type="submit" class="btn btn-default submit" style="border: 1px solid gray; width: 100%;" href="masterpage.html">Ingresar</button>
@@ -64,7 +64,9 @@ if(isset($_SESSION['id_user']) && $_SESSION['id_user'] > 0) {
                 <br />
                 <div>
                   <h1><i class="fa fa-book"></i> Reclamos / Sugerencias</h1>
-                  <p>©<?=date('Y')?> Todos los derechos reservados.</p>
+                  <p>
+                    Hospital Especializado Rosales
+                    <br />©<?=date('Y')?> Todos los derechos reservados.</p>
                 </div>
               </div>
             </form>
