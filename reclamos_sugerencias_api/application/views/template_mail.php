@@ -30,8 +30,8 @@
         </tr>
         <?php if(isset($msg_seguimiento) && trim($msg_seguimiento) != '') { ?>
         <tr>
-            <td style="text-align: center;">
-                <p style="font-size:12px;"><?=$msg_seguimiento?></p>
+            <td style="text-align: justify;">
+                <p style="font-size:14px;"><?=$msg_seguimiento?></p>
             </td>
         </tr>
         <?php } ?>

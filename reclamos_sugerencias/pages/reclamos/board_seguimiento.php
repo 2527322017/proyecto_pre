@@ -9,100 +9,107 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
           <div class="modal-header">
-            <h3>Datos <b class="lblTitle"></b></h3>
+            <h3>Detalle de <b class="lblTitle"></b></h3>
           </div>
           <div class="modal-body" style="max-height:500px; overflow:auto;">
-            <div class="row">
-            <table class="table table-bordered">
-            <thead>
-                <tr>
-                <th colspan="2" style="text-transform: uppercase;">Datos de Identificación</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <th width="25%">Nombre</th>
-                <td class="td_info_nombre"></td>
-                </tr>
-                <tr>
-                <th>Documento</th>
-                <td class="td_info_documento"></td>
-                </tr>
-                <tr>
-                <th>Correo</th>
-                <td class="td_info_correo"></td>
-                </tr>
-                <tr>
-                <th>Teléfono</th>
-                <td class="td_info_telefono"></td>
-                </tr>
-                <tr>
-                <th>G&eacute;nero</th>
-                <td class="td_info_genero"></td>
-                </tr>
-                <tr>
-                <th>Dirección Residencia</th>
-                <td class="td_info_direccion"></td>
-                </tr>
-            </tbody>
-            </table>
-            </div>
-
-            <div class="row">
-            <table class="table table-bordered">
-            <thead>
-                <tr>
-                <th colspan="2"  style="text-transform: uppercase;">Datos de <span class="lblTitle"></span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <th width="25%">Tipo cliente</th>
-                <td class="td_info_tipo_cliente"></td>
-                </tr>
-                <tr>
-                <th>Área de salud</th>
-                <td class="td_info_area_salud"></td>
-                </tr>
-                <tr>
-                <th>Descripción</th>
-                <td class="td_info_descripcion_caso"></td>
-                </tr>
-            </tbody>
-            </table>
-            </div>
-
-            <div class="row">
-            <table width="100%" class="table table-bordered">
-            <thead>
-                <tr>
-                <th style="text-transform: uppercase;">Archivos</th>
-                </tr>
-            </thead>
-            <tbody  id="tbodyArchivos">
-            </tbody>
-            </table>
-            </div>
-
-            <div class="row">
-            <table class="table table-bordered">
-            <thead>
-                <tr>
-                <th colspan="4"  style="text-transform: uppercase;">Seguimiento de caso</th>
-                </tr>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Comentario</th>
-                    <th>Resolución</th>
-                    <th>Técnico / Encargado</th>
-                </tr>
-            </thead>
-            <tbody id="tbodySeguimiento">
-
-            </tbody>
-            </table>
-            </div>
-
+            <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+                      <div class="panel">
+                        <a class="panel-heading" role="tab" id="lnkDatos1" data-toggle="collapse" data-parent="#accordion1" href="#datosIdentificacion" aria-expanded="false" aria-controls="collapseOne">
+                          <h5 class="panel-title">Datos de identificación</h5>
+                        </a>
+                        <div id="datosIdentificacion" class="panel-collapse in collapse show" role="tabpanel" aria-labelledby="lnkDatos1" style="">
+                          <div class="panel-body">
+                          <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                <th width="25%">Nombre</th>
+                                <td class="td_info_nombre"></td>
+                                </tr>
+                                <tr>
+                                <th>Documento</th>
+                                <td class="td_info_documento"></td>
+                                </tr>
+                                <tr>
+                                <th>Correo</th>
+                                <td class="td_info_correo"></td>
+                                </tr>
+                                <tr>
+                                <th>Teléfono</th>
+                                <td class="td_info_telefono"></td>
+                                </tr>
+                                <tr>
+                                <th>G&eacute;nero</th>
+                                <td class="td_info_genero"></td>
+                                </tr>
+                                <tr>
+                                <th>Dirección Residencia</th>
+                                <td class="td_info_direccion"></td>
+                                </tr>
+                            </tbody>
+                          </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel">
+                        <a class="panel-heading" role="tab" id="lnkDatos2" data-toggle="collapse" data-parent="#accordion1" href="#datosDetalle" aria-expanded="false" aria-controls="collapseTwo">
+                          <h5 class="panel-title">Detalle de <span class="lblTitle"></span></h5>
+                        </a>
+                        <div id="datosDetalle" class="panel-collapse in collapse show" role="tabpanel" aria-labelledby="lnkDatos2" style="">
+                          <div class="panel-body">
+                          <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                <th width="25%">Tipo cliente</th>
+                                <td class="td_info_tipo_cliente"></td>
+                                </tr>
+                                <tr>
+                                <th>Área de salud</th>
+                                <td class="td_info_area_salud"></td>
+                                </tr>
+                                <tr>
+                                <th>Descripción</th>
+                                <td class="td_info_descripcion_caso"></td>
+                                </tr>
+                            </tbody>
+                          </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel">
+                        <a class="panel-heading" role="tab" id="lnkDatos3" data-toggle="collapse" data-parent="#accordion1" href="#datosArchivo" aria-expanded="false" aria-controls="collapseThree">
+                          <h5 class="panel-title">Archivos</h5>
+                        </a>
+                        <div id="datosArchivo" class="panel-collapse in collapse show" role="tabpanel" aria-labelledby="lnkDatos3" style="">
+                          <div class="panel-body">
+                          <table width="100%" class="table table-bordered">
+                            <tbody  id="tbodyArchivos">
+                            </tbody>
+                          </table> 
+                         </div>
+                        </div>
+                      </div>
+                      <div class="panel">
+                        <a class="panel-heading collapsed" role="tab" id="lnkDatos4" data-toggle="collapse" data-parent="#accordion1" href="#datosSeguimiento" aria-expanded="false" aria-controls="collapseThree">
+                          <h5 class="panel-title">Seguimiento de caso</h5>
+                        </a>
+                        <div id="datosSeguimiento" class="panel-collapse collapse" role="tabpanel" aria-labelledby="lnkDatos4" style="">
+                          <div class="panel-body">
+                          <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Comentario</th>
+                                    <th>Resolución</th>
+                                    <th>Técnico / Encargado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodySeguimiento">
+                            </tbody>
+                          </table> 
+                         </div>
+                        </div>
+                      </div>
+              </div>
 
           </div>
           <div class="modal-footer">

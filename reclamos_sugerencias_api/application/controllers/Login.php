@@ -68,5 +68,40 @@ class Login extends CI_Controller {
 		die(json_encode($response));
 	}
 
+
+	public function verificar_correo()
+	{
+		$data = json_decode(file_get_contents('php://input'), true);
+        $request = (count($_POST) > 0)? $_POST:$data;
+		
+		if(!is_array($request)) {
+			parse_str(file_get_contents('php://input'),$request);
+		}
+
+		$response = [];
+		if(is_array($request) && count($request) > 0  
+			&& isset($request['correo']) && trim($request['correo']) != '' 
+			) {
+			$q_existe = $this->login_model->consultar(['usuario'=>trim($request['correo'])]);
+			if(!$q_existe) {
+				$q_existe = $this->login_model->consultar(['correo'=>trim($request['correo'])]);
+			}
+			
+			if(!$q_existe) {
+				$response['status'] = "error";
+				$response['result'] = ['msg'=>'Usuario no existe'];
+			} else {
+				$response['status'] = "success";
+				$response['result'] = $q_existe[0];	
+			}
+
+		} else {
+			$response['status'] = "error";
+			$response['result'] = ['msg'=>'Campos requeridos'];
+		}
+		die(json_encode($response));
+
+
+	}
 	
 }

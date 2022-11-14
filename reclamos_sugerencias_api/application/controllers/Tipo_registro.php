@@ -75,6 +75,8 @@ class Tipo_registro extends CI_Controller {
 				$datos_insert['fecha_mod'] 	= date('Y-m-d H:i:s');
 				$datos_insert['usu_crea'] 	= (isset($request['id_user']) && $request['id_user'] > 0)? $request['id_user']:1;
 				$datos_insert['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:1;
+				$datos_insert['identificacion_completa'] 	= (isset($request['identificacion_completa']) && $request['identificacion_completa'] >= 0)? $request['identificacion_completa']:1;
+				
 				$new = $this->model_catalogo->crear($datos_insert);
 				
 				$response['status'] = "success";
@@ -108,7 +110,9 @@ class Tipo_registro extends CI_Controller {
 				$datos_update['estado'] 	= (isset($request['estado']) && $request['estado'] >= 0)? $request['estado']:1;
 				$datos_update['fecha_mod'] 	= date('Y-m-d H:i:s');
 				$datos_update['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:1;
-				$condicion['primary_key'] 			= $id;
+				$datos_update['identificacion_completa'] = (isset($request['identificacion_completa']) && $request['identificacion_completa'] >= 0)? $request['identificacion_completa']:1;
+	
+				$condicion['primary_key']	= $id;
 		
 				$this->model_catalogo->actualizar($datos_update,$condicion);
 				$response = [];

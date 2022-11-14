@@ -48,7 +48,7 @@ if(isset($_SESSION['id_user']) && $_SESSION['id_user'] > 0) {
             <form method="POST" id="frmLogin">
               <h1>Iniciar Sesión</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Usuario" name="usuario" required />
+                <input type="text" class="form-control" placeholder="Usuario/Correo" name="usuario" required />
               </div>
               <div>
                 <input type="password" class="form-control" placeholder="Contraseña" name="clave" required />

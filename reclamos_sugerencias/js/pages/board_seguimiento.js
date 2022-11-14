@@ -191,7 +191,6 @@ function ver_detalle(id_caso) {
             loader.open('',true);
         },
         success: function (response) {
-            loader.close();
             registro_caso = response.result.registro;
             archivos_caso = response.result.archivos;
             seguimiento_caso = response.result.seguimiento;
@@ -211,7 +210,7 @@ function ver_detalle(id_caso) {
             $("#modalInfo .td_info_descripcion_caso").html(registro_caso.descripcion);
 
             if(archivos_caso.length > 0) {
-                const array_type_img = ['png', 'jpeg', 'jpg', 'gif', 'bmp', 'tif'];
+                const array_type_img = ['png', 'jpeg', 'jpg', 'gif', 'bmp', 'tif', 'PNG', 'JPEG', 'JPG', 'GIF', 'BMP', 'TIF'];
                 var html_archivos = '<tr><td><div class="row">';
                 archivos_caso.forEach(function(registro, indice) {
                     etiqueta_archivo = '';
@@ -266,9 +265,10 @@ function ver_detalle(id_caso) {
                 $("#tbodySeguimiento").html('<tr><td colspan="4">Sin registros</td></tr>');
             }
 
-
+            
             $("#modalInfo").modal();
             loadFancybox();
+            setTimeout(() => { loader.close(); }, 1500); //cerrar luego de renderizar el contenido
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);

@@ -25,7 +25,7 @@ class Reclamo_model extends CI_Model
  	}
 
  
- 	public function consultar($where=null, $includeRelation = true, $orderBy = null) {
+ 	public function consultar($where=null, $includeRelation = true, $orderBy = null, $limitQuery = null) {
  		$this->db->select("$this->table_model.*, $this->table_primary_key id_key")
     ->from($this->table_model);
     if($where) {
@@ -48,7 +48,9 @@ class Reclamo_model extends CI_Model
     }
     if(count($this->table_relation_join_left) > 0 && $includeRelation) {
       foreach ($this->table_relation_join_left as $key => $value) {
-        $this->db->select("IFNULL($key.nombre,'') $key");
+        $campos_left = explode('=', $value);
+        $campo_left = $campos_left[1];
+        $this->db->select("IFNULL($key.nombre,'') $key, $campo_left");
         $this->db->join($key, $value, 'left');
       }
     }
@@ -58,6 +60,10 @@ class Reclamo_model extends CI_Model
       foreach ($orderBy as $campo => $tipo) {
         $this->db->order_by($campo,$tipo);
       }
+    }
+
+    if($limitQuery && $limitQuery > 0) {
+        $this->db->limit($limitQuery);
     }
 
 

@@ -84,8 +84,9 @@ class Reclamo extends CI_Controller {
 				$datos_insert['estado'] 	= (isset($request['estado']) && $request['estado'] >= 0)? $request['estado']:1;
 				$datos_insert['fecha_crea'] = date('Y-m-d H:i:s');
 				$datos_insert['fecha_mod'] 	= date('Y-m-d H:i:s');
-				$datos_insert['usu_crea'] 	= (isset($request['id_user']) && $request['id_user'] > 0)? $request['id_user']:1;
-				$datos_insert['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:1;
+				$datos_insert['usu_crea'] 	= (isset($request['id_user']) && $request['id_user'] > 0)? $request['id_user']:0;
+				$datos_insert['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:0;
+				$datos_insert['usuario_cliente_id'] = (isset($request['usuario_cliente_id'])  && $request['usuario_cliente_id'] > 0)? $request['usuario_cliente_id']:null;
 				
 				$relaciones = $this->model_proceso->get_config_relations();
 				foreach ($relaciones as $key => $value) {
@@ -120,25 +121,30 @@ class Reclamo extends CI_Controller {
 
 				//enviar sms
 				$response['sms'] = 'Problemas en notificar via SMS';
-				if(trim($datos_insert['telefono']) != '') {
+				if(trim($datos_insert['telefono']) != '' && $new > 0) {
 					$msg_sms = 'Sistema de reclamos: Caso: '.$datos_insert['codigo']. ', ' . $msj_estado;
 					$response['sms'] = sendSMS($datos_insert['telefono'], $msg_sms);
 				}
 
 				//enviar mail
 				$response['mail'] = 'Problemas en notificar via Correo';
-				if(trim($datos_insert['correo']) != '') {
+				if(trim($datos_insert['correo']) != '' && $new > 0) {
 					$nombrePersona = ucwords(strtolower($datos_insert['nombre'] . ' ' . $datos_insert['apellido']));
 					$datos = [];
 					$datos['nombre_persona'] = $nombrePersona;
 					$datos['mensaje_estado'] = $msj_estado;
 					$datos['codigo'] = $datos_insert['codigo'];
 					
-					if(false) {
-						//$this->load->model('usuario_model');
-						//$html_usuario = '<b>Usuario:</b> ' . $datos_insert['correo'];
-						//$html_usuario .= '<br /><b>Clave:</b> ' . $datos_insert['correo'];
-						//$datos['msg_seguimiento'] = $html_usuario;	
+					if($datos_insert['usuario_cliente_id'] == null && $datos_insert['numero_documento'] !='') { //si no tiene usuario enviar correo de usuario
+						$new_user = $this->generateUser($datos_insert);
+						if($new_user['user_id'] > 0) {
+							//actualizar la referencia del usaurio-cliente.
+							$this->model_proceso->actualizar(["usuario_cliente_id"=>$new_user['user_id']],["primary_key"=>$new]);
+							$html_usuario = 'Los datos de acceso para seguimiento son los siguiente:<br /><br />'; 
+							$html_usuario .= '<b>Usuario:</b> ' . $new_user['usuario'];
+							$html_usuario .= '<br /><b>Clave:</b> ' .$new_user['clave'];
+							$datos['msg_seguimiento'] = $html_usuario;	
+						}
 					}
 					
 
@@ -229,6 +235,78 @@ class Reclamo extends CI_Controller {
 		$response = [];
 		$response['status'] = "success";
 		$response['result'] = $this->model_proceso->get_relations_data();
+		die(json_encode($response));
+	}
+
+	private function generateUser($datos=null)
+	{
+		$correo = ($datos && isset($datos['correo']))?  trim($datos['correo']):'';
+		$response = [];
+		$response['user_id'] = 0;
+		$response['usuario'] = 0;
+		$response['clave'] = 0;
+		
+		if($correo == '') {
+			return $response;
+		}
+		$this->load->model('usuario_model');
+
+		$q_existe = $this->usuario_model->consultar(['usuario'=>trim($correo)]);
+		$q_existe2 = $this->usuario_model->consultar(['correo'=>trim($correo)]);
+		if($q_existe || $q_existe2) {
+			$response['status'] = "error";
+			$response['result'] = ['msg'=>'Usuario/Correo ya existe'];
+		} else {
+			$clave = generate_password();
+
+			$datos_insert['nombre'] 	= $datos['nombre'].' '. $datos['apellido'];
+			$datos_insert['usuario'] 	= $correo;
+			$datos_insert['correo'] 	= $correo;
+			$datos_insert['clave'] 		= password_hash($clave, PASSWORD_DEFAULT); 
+			$datos_insert['tipo']		= 3; //cliente
+			$datos_insert['estado'] 	= 1;
+			$datos_insert['fecha_crea'] = date('Y-m-d H:i:s');
+			$datos_insert['fecha_mod'] 	= date('Y-m-d H:i:s');
+			$datos_insert['usu_crea'] 	= (isset($datos['id_user']) && $datos['id_user'] > 0)? $datos['id_user']:0;
+			$datos_insert['usu_mod'] 	= (isset($datos['id_user'])  && $datos['id_user'] > 0)? $datos['id_user']:0;
+
+
+
+			$idUsu = $this->usuario_model->crear($datos_insert);
+			if($idUsu > 0) {
+				$response['user_id'] = $idUsu;
+				$response['usuario'] = $correo;
+				$response['clave'] = $clave;
+			}
+		}
+		return $response;
+	}
+
+
+	public function last_register()
+	{	
+		$data = json_decode(file_get_contents('php://input'), true);
+        $request = (count($_POST) > 0)? $_POST:$data;
+		
+		if(!is_array($request)) {
+			parse_str(file_get_contents('php://input'),$request);
+		}
+
+		$response = [];
+		$response['status'] = "error";
+		if(is_array($request) && count($request) > 0  
+			&& isset($request['tipo_user']) && trim($request['tipo_user']) == '3' 
+			&& isset($request['id_user']) && $request['id_user'] > 0  
+			) { 
+				$where = [];
+				$where['usuario_cliente_id'] = $request['id_user'];
+				$result = $this->model_proceso->consultar($where,true,['id_registro_caso'=>'DESC'],1);
+				if($result) {
+					$response['status'] = "success";
+					$response['result'] = $result[0];
+				}
+			}
+
 		die(json_encode($response));
 	}
 

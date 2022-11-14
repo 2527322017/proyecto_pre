@@ -78,8 +78,11 @@
                                         <li><a href="<?=HOST?>page/asignar_caso">Asignación de caso</a></li>
                                     <?php } ?>
                                     
+                                    <?php if(in_array(TYPE_USER,[1,2,3])) { ?>
+                                        <li><a href="<?=HOST?>page/seguimiento_caso">Casos registrados</a></li>
+                                    <?php } ?>
+
                                     <?php if(in_array(TYPE_USER,[1,2])) { ?>
-                                        <li style="display:none;" ><a href="<?=HOST?>page/seguimiento_caso">Seguimiento de caso</a></li>
                                         <li><a href="<?=HOST?>page/board_seguimiento">Tablero de trabajo</a></li>
                                     <?php } ?>
                                     
@@ -147,7 +150,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="javascript:;"> Perfil</a>
-                                    <a class="dropdown-item" href="<?=HOST?>logout"><i class="fa fa-sign-out pull-right"></i>Cerrar sesión</a>
+                                    <a class="dropdown-item" id="lnkLogout" href="<?=HOST?>logout"><i class="fa fa-sign-out pull-right"></i>Cerrar sesión</a>
                                 </div>
                             </li>
                         </ul>

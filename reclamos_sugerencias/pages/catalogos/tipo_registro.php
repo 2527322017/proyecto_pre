@@ -12,6 +12,7 @@
               <tr class="headings">
                 <th class="column-title">#</th>
                 <th class="column-title">Nombre</th>
+                <th class="column-title">Aplica información completa</th>
                 <th class="column-title">Estado</th>
                 <th class="column-title acciones" >Acción</th>
               </tr>
@@ -40,6 +41,13 @@
             <label for="nombre" class="col-form-label">Nombre:</label>
             <input type="text" required class="form-control" name="nombre">
           </div>
+          <div class="form-group">
+            <label for="identificacion_completa" class="col-form-label">Aplica información completa:</label>
+            <select class="form-control" required name="identificacion_completa">
+              <option value="1">Sí</option>
+              <option value="0">No</option>
+            </select>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary" id="btnGuardar">Guardar</button>
@@ -66,6 +74,13 @@
           <div class="form-group">
             <label for="nombre" class="col-form-label">Nombre:</label>
             <input type="text" required class="form-control" name="nombre">            
+          </div>
+          <div class="form-group">
+            <label for="identificacion_completa" class="col-form-label">Aplica información completa:</label>
+            <select class="form-control" required name="identificacion_completa">
+              <option value="1">Sí</option>
+              <option value="0">No</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="estado" class="col-form-label">Estado:</label>

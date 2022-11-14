@@ -251,7 +251,7 @@ function ver_detalle(id_caso) {
             $("#modalInfo .td_info_descripcion_caso").html(registro_caso.descripcion);
 
             if(archivos_caso.length > 0) {
-                const array_type_img = ['png', 'jpeg', 'jpg', 'gif', 'bmp', 'tif'];
+                const array_type_img = ['png', 'jpeg', 'jpg', 'gif', 'bmp', 'tif', 'PNG', 'JPEG', 'JPG', 'GIF', 'BMP', 'TIF'];
                 var html_archivos = '<tr><td><div class="row">';
                 archivos_caso.forEach(function(registro, indice) {
                     etiqueta_archivo = '';
@@ -316,4 +316,14 @@ function ver_detalle(id_caso) {
         }
     });
    
+}
+
+function loadFancybox() {
+    Fancybox.bind('[data-fancybox="gallery"]', {
+        caption: function (fancybox, carousel, slide) {
+          return (
+            `${slide.index + 1} / ${carousel.slides.length} <br />` + slide.caption
+          );
+        },
+      });
 }

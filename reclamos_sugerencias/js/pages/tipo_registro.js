@@ -44,9 +44,11 @@ function consultar() {
             if(response.status == 'success') {
                 response.result.forEach(function(registro, indice) {
                     estado_registro = (registro.estado == 1)? 'Activo':'Inactivo';
+                    aplica_requeridos = (registro.identificacion_completa == 1)? 'Sí':'No';
                     html_tbody += `<tr class="even pointer" data-id="${registro.id_key}">
                                 <td data="indice">${indice + 1}</td>
                                 <td data="nombre">${registro.nombre}</td>
+                                <td data="identificacion_completa" data-value="${registro.identificacion_completa}" >${aplica_requeridos}</td>
                                 <td data="estado" data-value="${registro.estado}" >${estado_registro}</td>
                                 <td data="accion" class="acciones">
                                 <button type="button" class="btn btn-info btnEditar" data-id="${registro.id_key}" >Editar</button>
@@ -207,9 +209,16 @@ function load_editar(id) {
     registro = $("#tblDatos tr[data-id='"+id+"']");
     $("#frmEditar input[name='id']").val(id);
     $("#frmEditar input[name='nombre']").val(registro.find("td[data='nombre']").text());
+
     estado = registro.find("td[data='estado']").attr('data-value');
     $("#frmEditar select[name='estado'] option[value='"+estado+"']").attr('selected', true);
     $("#frmEditar select[name='estado']").val(estado);     
+    
+    identificacion_completa = registro.find("td[data='identificacion_completa']").attr('data-value');
+    $("#frmEditar select[name='identificacion_completa'] option[value='"+identificacion_completa+"']").attr('selected', true);
+    $("#frmEditar select[name='identificacion_completa']").val(identificacion_completa);     
+    
+
     $("#editarModal").modal();
 }
 

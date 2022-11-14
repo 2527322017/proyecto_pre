@@ -48,9 +48,20 @@ class Seguimiento_reclamo extends CI_Controller {
 		}
 
 		$id = ($id > 0)? $id: (isset($request['id_user'])? $request['id_user']:0);
+		$tipo_usuario = (isset($request['tipo_user']) && $request['tipo_user'] > 0)? $request['tipo_user']:2; //default encargado
+		$is_board = (isset($request['is_board']) && is_numeric($request['is_board']))? $request['is_board']:1; //preguntar si es la pizarra de trabajo
+		
 
 		$where = null;
-		$where['usuario_id'] = $id;
+		if($tipo_usuario == 3 && $is_board == 0) {
+			$where['usuario_cliente_id'] = $id; //filtrar los del cliente
+		} else if($tipo_usuario == 1 && $is_board == 0) { //admin, ver los registros de los ultimos 10meses
+			$nuevafecha = strtotime('-10 months', strtotime(date('Y-m-d')));
+			$where['DATE(registro_caso.fecha_crea) >='] = date('Y-m-d' , $nuevafecha);;
+		} else {
+			$where['usuario_id'] = $id;
+		}
+		
 		$response = [];
 		$response['status'] = "success";
 
@@ -298,6 +309,7 @@ class Seguimiento_reclamo extends CI_Controller {
 			parse_str(file_get_contents('php://input'),$request);
 		}
 		$id = (isset($request['id']) && $request['id']>0)? $request['id']: 0;
+		$tipo_usuario = (isset($request['tipo_user']) && $request['tipo_user'] > 0)? $request['tipo_user']:2; //default encargado
 		
 		$response = [];
 		if($id > 0 ) { 

@@ -54,6 +54,23 @@ var loader = {
             var element = document.getElementById('dvWaitPage');
             element.parentNode.removeChild(element);
         }
+    },
+    openSwal: function(mensaje) {
+        if (mensaje == null) {
+            mensaje = '';
+        }
+        Swal.fire({
+            title: '',
+            html: mensaje,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+    },
+    closeSwal: function() {
+        swal.close();
     }
 };
 

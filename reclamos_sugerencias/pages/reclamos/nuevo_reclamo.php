@@ -47,7 +47,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
                                 class="fa fa-asterisk" style='color: red'></i> Nombres</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input type="text" name="nombre" required="required" class="form-control">
+                            <input type="text" name="nombre" required="required" class="form-control autoComplete" apply-read = "1">
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
                                 class="fa fa-asterisk" style='color: red'></i> Apellidos</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input type="text" name="apellido" required="required" class="form-control">
+                            <input type="text" name="apellido" required="required" class="form-control autoComplete" apply-read = "1">
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
                                 class="fa fa-asterisk" style='color: red;'></i> Correo</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input type="email" name="correo" required="required" class="form-control">
+                            <input type="email" name="correo" required="required" class="form-control autoComplete" apply-read = "1">
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
                                 class="fa fa-asterisk" style='color: red'></i> Tel&eacute;fono</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input type="text" name="telefono" required="required" class="form-control">
+                            <input type="text" name="telefono" required="required" class="form-control autoComplete" apply-read = "1">
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Tipo de documento</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <select name="tipo_doc_id" class="form-control" required>
+                            <select name="tipo_doc_id" class="form-control autoComplete" apply-read = "1" required>
                                 <option value="">Cargando...</option>
                             </select>
                         </div>
@@ -106,7 +106,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
                                 class="fa fa-asterisk" style='color: red'></i> N° de documento</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input type="text" name="numero_documento" required="required" class="form-control">
+                            <input type="text" name="numero_documento" required="required" class="form-control autoComplete" apply-read = "1">
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> G&eacute;nero</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <select  name="genero_id" class="form-control" required>
+                            <select  name="genero_id" class="form-control autoComplete" apply-read = "1" required>
                                 <option value="">Cargando...</option>
                             </select>
                         </div>
@@ -132,7 +132,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Departamento residencia</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <select  name="departamento_id" class="form-control" required>
+                            <select  name="departamento_id" class="form-control autoComplete" apply-read = "0" required>
                                 <option value="">Cargando...</option>
                             </select>
                         </div>
@@ -147,7 +147,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"><i
                                 class="fa fa-asterisk" style='color: red'></i> Municipio residencia</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <select name="municipio_id" class="form-control" required>
+                            <select name="municipio_id" class="form-control autoComplete" apply-read = "0" required>
                                 <option value="">Cargando...</option>
                             </select>
                         </div>
@@ -161,7 +161,7 @@
                                 class="fa fa-asterisk" style='color: red'></i> Direcci&oacute;n de
                             residencia</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <textarea required="required" class="form-control" name="direccion_residencia"
+                            <textarea required="required" class="form-control autoComplete" apply-read = "0" name="direccion_residencia"
                                 data-parsley-trigger="keyup"
                                 data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                                 data-parsley-validation-threshold="10"></textarea>
@@ -171,11 +171,9 @@
 
             </div>
 
-
-
                 <div  class="col-md-12 col-sm-12">
                     <div class="x_title">
-                        <h2>Datos de <label id="lblTitleDetalle" style="text-transform:capitalize;">Registro</label> </h2>
+                        <h2>Detalle de <label id="lblTitleDetalle" style="text-transform:capitalize;">Registro</label> </h2>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -243,6 +241,7 @@
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
+                        <div style="margin-bottom: 10px; display:none;" id="dvHelpCaptcha">Completa la siguiente operación para continuar</div>
                             <input type="submit" class="btn btn-success" id="btnEnviar" value="Enviar">
                         </div>
                     </div>
@@ -254,9 +253,16 @@
     </div>
 </div>
 <style>
+
 #captchaInput {
     width: 50px;
-    margin-right: 10px;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+#captchaText {
+    margin-right: 5px;
+    font-size: 20px;
 }
 </style>
 
