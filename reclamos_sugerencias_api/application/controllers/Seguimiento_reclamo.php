@@ -51,21 +51,48 @@ class Seguimiento_reclamo extends CI_Controller {
 		$tipo_usuario = (isset($request['tipo_user']) && $request['tipo_user'] > 0)? $request['tipo_user']:2; //default encargado
 		$is_board = (isset($request['is_board']) && is_numeric($request['is_board']))? $request['is_board']:1; //preguntar si es la pizarra de trabajo
 		
-
+		$order_by = array('orden_tablero'=>'ASC');
 		$where = null;
 		if($tipo_usuario == 3 && $is_board == 0) {
 			$where['usuario_cliente_id'] = $id; //filtrar los del cliente
 		} else if($tipo_usuario == 1 && $is_board == 0) { //admin, ver los registros de los ultimos 10meses
 			$nuevafecha = strtotime('-10 months', strtotime(date('Y-m-d')));
-			$where['DATE(registro_caso.fecha_crea) >='] = date('Y-m-d' , $nuevafecha);;
+			$where['DATE(registro_caso.fecha_crea) >='] = date('Y-m-d' , $nuevafecha);
+			$order_by = array('registro_caso.fecha_crea'=>'ASC');
 		} else {
 			$where['usuario_id'] = $id;
+			//excluir los registros finalizados con más de 5 meses (en la pizarra)
+			if($is_board == 1) {
+				$where["DATE(registro_caso.fecha_crea) >= IF(registro_caso.estado = 4, ADDDATE(CURDATE(),INTERVAL -5 MONTH),DATE(registro_caso.fecha_crea))"] = null;
+			}
 		}
 		
 		$response = [];
 		$response['status'] = "success";
 
-		$response['result'] = $this->model_proceso->consultar($where, true, array('orden_tablero'=>'ASC'));
+		$response['result'] = $this->model_proceso->consultar($where, true, $order_by);
+		die(json_encode($response));
+	}
+
+	public function consultar_admin()
+	{	
+		$data = json_decode(file_get_contents('php://input'), true);
+        $request = (count($_POST) > 0)? $_POST:$data;
+		if(!is_array($request)) {
+			parse_str(file_get_contents('php://input'),$request);
+		}
+
+		$id = (isset($request['id_user_tecnico']) && $request['id_user_tecnico'] > 0)? $request['id_user_tecnico']:0;
+		
+		$where['usuario_id'] = $id;
+		//excluir los registros finalizados con más de 5 meses (en la pizarra)
+		$where["DATE(registro_caso.fecha_crea) >= IF(registro_caso.estado = 4, ADDDATE(CURDATE(),INTERVAL -5 MONTH),DATE(registro_caso.fecha_crea))"] = null;
+		
+		$order_by = array('orden_tablero'=>'ASC');
+		$response = [];
+		$response['status'] = "success";
+
+		$response['result'] = $this->model_proceso->consultar($where, true, $order_by);
 		die(json_encode($response));
 	}
 
@@ -180,10 +207,24 @@ class Seguimiento_reclamo extends CI_Controller {
 
 	public function relations()
 	{	
+		$data = json_decode(file_get_contents('php://input'), true);
+        $request = (count($_POST) > 0)? $_POST:$data;
+		if(!is_array($request)) {
+			parse_str(file_get_contents('php://input'),$request);
+		}
+		
+		if(isset($request['tipo_user']) && $request['tipo_user'] == 1) { //admin
+			$result_relations1 = $this->model_proceso->get_relations_data(['tipo_resolucion'=>'id_tipo_res=tipo_res_id'],['estado'=>1]);
+			$result_relations2 = $this->model_proceso->get_relations_data(['usuarios'=>'id_usuario=usuario_id'],['tipo'=>2]);
+			$result_relations = array_merge($result_relations1, $result_relations2);
+		} else {
+			$result_relations = $this->model_proceso->get_relations_data(['tipo_resolucion'=>'id_tipo_res=tipo_res_id'],['estado'=>1]);
+		}
+		
 		$response = [];
 		$response['status'] = "success";
 		//solo encargados
-		$response['result'] = $this->model_proceso->get_relations_data(['tipo_resolucion'=>'id_tipo_res=tipo_res_id'],['estado'=>1]);
+		$response['result'] = $result_relations; 
 		die(json_encode($response));
 	}
 

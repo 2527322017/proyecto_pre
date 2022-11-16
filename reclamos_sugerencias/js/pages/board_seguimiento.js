@@ -3,17 +3,19 @@ var URL_AJAX_ORDEN = proyecto_carpeta + 'procesar_datos/seguimiento_reclamo__ord
 var URL_AJAX_UPDATE = proyecto_carpeta + 'procesar_datos/seguimiento_reclamo__status_update';
 var URL_AJAX_DETALLE = proyecto_carpeta + 'procesar_datos/seguimiento_reclamo__get_detalle';
 var URL_AJAX_RELATION = proyecto_carpeta + 'procesar_datos/seguimiento_reclamo__relations';
+var URL_AJAX_ADMIN = proyecto_carpeta + 'procesar_datos/seguimiento_reclamo__consultar_admin';
 
 $(document).ready(function () {
     consultar(); //llamar al cargar la pagina
     set_relations(); //llenar los selectores relacionados
 
-    //recargar cada 20 seg
-    setInterval(() => {
+    //recargar cada 5 min
+   /* setInterval(() => {
         if(window.location.pathname.indexOf('board') != -1) {
             consultar();
         }
-    }, 20000);
+    }, 300000);
+    */
 
     var validatorAdd = $("#frmAgregar").validate();
 
@@ -33,7 +35,19 @@ $(document).ready(function () {
         $("#frmAgregar select[name='notificar_correo']").val('0');
         $("#dvCorreo").hide('slow');
        }        
+
+       if($(this).val() > 0) {
+        $("#dvMsg").show('slow');
+       } else {
+        $("#dvMsg").hide('slow');
+       }
+
     });
+
+
+    $("select[name='usuario_id']").change(function (e) {    
+        consultar_admin();
+     });
 
 
 });
@@ -42,6 +56,15 @@ $(document).ready(function () {
 
 
 function consultar() {
+    if($("select[name='usuario_id']").length > 0 && $("select[name='usuario_id']").val() > 0) {
+        consultar_admin();
+    } else {
+        consultar_tecnico();
+    }
+}
+
+
+function consultar_tecnico() {
     $.ajax({
         type: "GET",
         url: URL_AJAX,
@@ -103,7 +126,6 @@ function consultar() {
     });
 }
 
-
 function makeTablero(itemsTablero) {
     $('#kanban').html(''); //vaciar
     $('#kanban').kanban({
@@ -162,7 +184,9 @@ function ordenar_seguimiento(registros) {
 
 }
 
-function update_seguimiento(id_caso, estado) {
+function update_seguimiento(id_caso, estado, updateBoard) {
+   var updateBoard = (typeof updateBoard !== 'undefined') ?  1: 0;
+
     $.ajax({
         type: "POST",
         url: URL_AJAX_UPDATE,
@@ -173,6 +197,9 @@ function update_seguimiento(id_caso, estado) {
         },
         success: function (response) {
             loader.close();
+            if(updateBoard == 1) {
+                consultar();
+            }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
@@ -308,7 +335,7 @@ function set_relations() {
                     }
 
                     //llenar los selectores
-                    $("#frmAgregar select[name='"+relation+"']").html(html_option);
+                    $("select[name='"+relation+"']").html(html_option);
                     
                 }); 
 
@@ -358,7 +385,9 @@ function agregar_seguimiento_caso() {
                     confirmButtonText: 'Aceptar'
                    // timer: 10000
                   }).then((result) => {
-
+                    if($("#frmAgregar select[name='tipo_res_id']").val() > 0) { //si se selecciono resolución enviar a finalizado
+                        update_seguimiento($("#frmAgregar input[name='id']").val(), 'Finalizado', 1);
+                    }                    
                   });
 
                   $("#frmAgregar").trigger("reset");
@@ -382,6 +411,70 @@ function agregar_seguimiento_caso() {
     });
 }
 
+function consultar_admin() {
+    $.ajax({
+        type: "POST",
+        url: URL_AJAX_ADMIN,
+        dataType: "json",
+        data:{id_user_tecnico:$("select[name='usuario_id']").val()},
+        beforeSend: function() {
+            loader.open('',true);
+        },
+        success: function (response) {
+            loader.close();
+            if(response.status == 'success') {
+                var ItemsKanba = [];
+                response.result.forEach(function(registro, indice) {
+                    estado_registro = 'Asignado';
+                    switch (parseInt(registro.estado)) {
+                        case 2:
+                            estado_registro = 'Análisis';
+                            break;
+                        case 3:
+                            estado_registro = 'Verificación';
+                            break;
+                        case 4:
+                            estado_registro = 'Finalizado';
+                            break;
+                    
+                        default:
+                            estado_registro = 'Asignado';
+                            break;
+                    }
+                    html_resol = (registro.tipo_resolucion != '')?  `<div class="dvResolucion" data-key="${registro.id_key}"> Resoluci&oacute;n: ${registro.tipo_resolucion}</div>`:'';
+                    title_html = `${registro.tipo_registro} 
+                                <div class="dvInfo"> ${registro.nombre} ${registro.apellido} 
+                                <br /> ${registro.fecha_crea}
+                                </div> <div class="dvCodigo" data-key="${registro.id_key}" data-cod="${registro.codigo}" data-correo="${registro.correo}" > Cód. ${registro.codigo}</div>
+                                ${html_resol}
+                                `;
+
+                    footer_html = `
+                    <div class="divBtnAcciones">
+                    <button type="button" title="ver detalle" onclick="ver_detalle(${registro.id_key});" class="btn btn-outline-info">Detalle</button>
+                    <button type="button" title="Detalle seguimiento" onclick="agregar_seguimiento(${registro.id_key});" class="btn btn-outline-info">Seguimiento</button>
+                    </div>
+                    `;
+                    ItemsKanba.push({
+                        id: registro.id_key,
+                        title: title_html,
+                        block: estado_registro,
+                       // link: '#',
+                       // link_text: 'Ver detalle',
+                        footer: footer_html
+                    });
+                });
+                makeTablero(ItemsKanba);
+            }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+           console.log(textStatus);
+           loader.close();
+        }
+    });
+}
+
+
 function loadFancybox() {
     Fancybox.bind('[data-fancybox="gallery"]', {
         caption: function (fancybox, carousel, slide) {
@@ -391,3 +484,4 @@ function loadFancybox() {
         },
       });
 }
+

@@ -301,6 +301,7 @@ class Reclamo extends CI_Controller {
 				$where = [];
 				$where['usuario_cliente_id'] = $request['id_user'];
 				$result = $this->model_proceso->consultar($where,true,['id_registro_caso'=>'DESC'],1);
+
 				if($result) {
 					$response['status'] = "success";
 					$response['result'] = $result[0];

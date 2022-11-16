@@ -37,7 +37,9 @@
         <?php } ?>
 		<tr>
             <td>
+                <?php if(isset($codigo) && trim($codigo) != '') { ?>
                 <h3>Caso #: <?=$codigo?></h3>
+                <?php } ?>
             </td>
         </tr>
         <tr>

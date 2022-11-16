@@ -59,11 +59,11 @@ class Router {
       case 'consulta_estado':
         $this->include_page = 'pages/reclamos/consultar_estado.php';
         break;
-      case 'forms':
-        $this->include_page = 'pages/system/ej_form.php';
+      case 'reporte1':
+        $this->include_page = 'pages/reportes/reclamos_resoluciones.php';
         break;
-      case 'tables':
-        $this->include_page = 'pages/system/ej_table.php';
+      case 'perfil':
+        $this->include_page = 'pages/system/perfil.php';
         break;
       default:
         $this->include_page = 'pages/system/no_found.php';
@@ -116,10 +116,10 @@ class Router {
       $this->page_access = ['all']; //all  = todas
     }
     else if($tipo_usuario == 2) { //tecnico encargado
-      $this->page_access = ['reclamo', 'consulta_estado','seguimiento_caso', 'board_seguimiento'];
+      $this->page_access = ['reclamo', 'consulta_estado','seguimiento_caso', 'board_seguimiento', 'perfil'];
     }
     else if($tipo_usuario == 3) { //usuario final
-      $this->page_access = ['reclamo', 'consulta_estado', 'seguimiento_caso'];
+      $this->page_access = ['reclamo', 'consulta_estado', 'seguimiento_caso', 'perfil'];
     } 
     else if($tipo_usuario == 4) { //usuario sin session
       $this->page_access = ['reclamo', 'consulta_estado'];

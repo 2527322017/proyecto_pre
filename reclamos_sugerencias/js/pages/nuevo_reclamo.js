@@ -212,7 +212,7 @@ function set_relations() {
 function validar_correo() {
     var correo_registro = $("#frmAgregar input[name='correo']").val().trim();
     var readOnly = $("#frmAgregar input[name='correo']").attr('readonly');
-    if(correo_registro != '' && !readOnly) {
+    if(correo_registro != '' && !readOnly && correo_registro.indexOf('@') != -1 ) {
         $.ajax({
             type: "POST",
             url: URL_AJAX_USER,

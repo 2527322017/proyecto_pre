@@ -1,6 +1,8 @@
 
 <div class="container">
-<h2>Tablero de trabajo, <?=NOMBRE_USUARIO?></h2>
+<h2>Tablero de trabajo 
+  <?=(TYPE_USER == 1)? '<select name="usuario_id"  class="form-control" style="width: 50%; display: inline-block;"><option value="">Seleccione</option></select>':NOMBRE_USUARIO?>
+</h2>
 <div id="kanban"></div>
 </div>
 
@@ -140,7 +142,7 @@
             <textarea rows="5" id="comentario"  name="comentario" required style="width: 100%;"></textarea>          
           </div>
           <div class="form-group" id="dvResolucion">
-            <label for="tipo_res_id" class="col-form-label">Tipo resolución:</label>
+            <label for="tipo_res_id" class="col-form-label">Resolución:</label>
             <select class="form-control" name="tipo_res_id">
               <option value="">Seleccione</option>
             </select>
@@ -154,7 +156,13 @@
             </select>
             <input type="hidden" class="form-control" name="id">
           </div>
+
+          <div class="form-group" id="dvMsg" style="display:none;">
+            <label for="notificar_correo" class="col-form-label"><b style="color: #b62020;">*Al aplicar una resolución pasará a estado finalizado de forma automática.</b></label>
+          </div>
+
         </div>
+        
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary" id="btnActualizar" >Guardar</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

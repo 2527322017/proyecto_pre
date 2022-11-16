@@ -1,4 +1,5 @@
 var URL_AJAX = '/reclamos_sugerencias/procesar_datos/login';
+var URL_AJAX_RECOVERY = '/reclamos_sugerencias/procesar_datos/login__recuperar_clave';
 $(document).ready(function () {
     var validatorLogin = $("#frmLogin").validate( {
         rules: {
@@ -19,6 +20,11 @@ $(document).ready(function () {
             }
         }
         });
+
+        var validatorRecover= $("#frmRecuperar").validate( {
+            rules: { correo: "required" },
+            messages: { correo: {required:"Correo requerido", email:"Escribir un correo válido" } }
+            });
     
     $("#frmLogin").submit(function(e) {
         e.preventDefault();
@@ -27,6 +33,12 @@ $(document).ready(function () {
         }
     });
 
+    $("#frmRecuperar").submit(function(e) {
+        e.preventDefault();
+        if(validatorRecover.form()){
+            login_recover();
+        }
+    });
 
 });
 
@@ -47,7 +59,11 @@ function login() {
             loader.close();
             if(response.status == 'success') {
                 loader.open('Bienvenido/a ' + response.result.nombre);
-                location.href = 'page/';
+                page_default = '';
+                if(parseInt(response.result.tipo) == 2) {
+                    page_default = 'board_seguimiento';
+                }
+                location.href = 'page/' + page_default;
                /* Swal.fire({
                    // position: 'top-end',
                     icon: 'success',
@@ -71,6 +87,45 @@ function login() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+        }
+    });
+}
+
+function login_recover() {
+    $.ajax({
+        type: "POST",
+        url: URL_AJAX_RECOVERY,
+        dataType: "json",
+        data: $("#frmRecuperar").serialize(),
+        beforeSend: function() {
+            loader.openSwal('Procesando...');
+        },
+        success: function (response) {
+            loader.closeSwal();
+            if(response.status == 'success') {
+                 Swal.fire({
+                    icon: 'success',
+                    title: '!Éxito!',
+                    text: 'Hemos enviado una nueva clave a tu correo electrónico',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Aceptar'
+                  }).then((result) => {
+                   $("#frmRecuperar").trigger("reset");
+                   location.href = location.pathname + "#signin";
+                  }); 
+
+            } else {
+                Swal.fire({
+                    title: '!Error!',
+                    text: response.result.msg,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                  }); 
+            }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+           console.log(textStatus);
+           loader.closeSwal();
         }
     });
 }
@@ -107,5 +162,22 @@ var loader = {
             var element = document.getElementById('dvWaitPage');
             element.parentNode.removeChild(element);
         }
+    },
+    openSwal: function(mensaje) {
+        if (mensaje == null) {
+            mensaje = '';
+        }
+        Swal.fire({
+            title: '',
+            html: mensaje,
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+    },
+    closeSwal: function() {
+        swal.close();
     }
 };

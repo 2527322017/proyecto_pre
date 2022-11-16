@@ -1,7 +1,7 @@
 <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
       <div class="x_title">
-        <h2>Reclamos/sugerencias <?=(TYPE_USER == 2)? 'asignados':'registradas'?></h2>
+        <h2>Reclamos/sugerencias <?=(TYPE_USER == 2)? 'asignados':'registradas'?> <?=(TYPE_USER == 1)? '(ultimos 6 meses)':''?></h2>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">

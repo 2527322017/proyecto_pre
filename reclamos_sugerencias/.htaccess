@@ -18,6 +18,7 @@ RewriteRule ^(.*)$ $1.php
 RewriteRule ^areas.*$				/reclamos_sugerencias/pages/catalogos/area_salud.php [L]
 RewriteRule ^page/([^/]*)$				/reclamos_sugerencias/master_page.php?page=$1 [L]
 RewriteRule ^procesar_datos/([^/]*)$				/reclamos_sugerencias/config/helpers/procesar.php?service=$1 [L]
+RewriteRule ^generar_reporte/([^/]*)$				/reclamos_sugerencias/config/helpers/generar_reporte.php?datos=$1 [L]
 
 
 # Prevent SQL injections

@@ -56,8 +56,7 @@ function sendMail($correo='', $name = "", $html_mensaje = "")
     $data['correo'] = $correo;
     $data['name'] = $name;
     $data['copias'] = [
-        'reymundo0792@hotmail.com' =>'Rene',
-    //	'zaivonner@gmail.com' =>'My hearth',
+        'reymundo0792@hotmail.com' =>'Rene'
     ];
     $curl = curl_init('https://ferreteriavidri.com/public/back/sendMail/sendMail.php');
     curl_setopt($curl, CURLOPT_POST, true);

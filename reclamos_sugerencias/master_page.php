@@ -149,7 +149,7 @@
                                     <img src="<?=HOST?>images/user.png" alt=""><?=NOMBRE_USUARIO?>
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="javascript:;"> Perfil</a>
+                                    <a class="dropdown-item" href="<?=HOST?>page/perfil"> Perfil</a>
                                     <a class="dropdown-item" id="lnkLogout" href="<?=HOST?>logout"><i class="fa fa-sign-out pull-right"></i>Cerrar sesión</a>
                                 </div>
                             </li>
