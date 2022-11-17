@@ -66,6 +66,7 @@ class Asignar_reclamo extends CI_Controller {
 				$response['status'] = "error";
 				$response['result'] = ['msg'=>'Registro no existe'];
 			} else { 
+				$datos_update['estado']	= 2; //asignado
 				$datos_update['usuario_id']	= $request['usuario_id'];
 				$datos_update['fecha_mod']	= date('Y-m-d H:i:s');
 				$datos_update['usu_mod']	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:1;

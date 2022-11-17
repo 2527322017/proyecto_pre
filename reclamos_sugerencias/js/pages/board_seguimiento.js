@@ -77,20 +77,23 @@ function consultar_tecnico() {
             if(response.status == 'success') {
                 var ItemsKanba = [];
                 response.result.forEach(function(registro, indice) {
-                    estado_registro = 'Asignado';
+                    estado_registro = 'Registrado';
                     switch (parseInt(registro.estado)) {
                         case 2:
-                            estado_registro = 'Análisis';
+                            estado_registro = 'Asignado';
                             break;
                         case 3:
-                            estado_registro = 'Verificación';
+                            estado_registro = 'Análisis';
                             break;
                         case 4:
+                            estado_registro = 'Verificación';
+                            break;
+                        case 5:
                             estado_registro = 'Finalizado';
                             break;
                     
                         default:
-                            estado_registro = 'Asignado';
+                            estado_registro = 'Registrado';
                             break;
                     }
                     html_resol = (registro.tipo_resolucion != '')?  `<div class="dvResolucion" data-key="${registro.id_key}"> Resoluci&oacute;n: ${registro.tipo_resolucion}</div>`:'';
@@ -336,6 +339,7 @@ function set_relations() {
 
                     //llenar los selectores
                     $("select[name='"+relation+"']").html(html_option);
+                    $("select[name='"+relation+"']").removeAttr('disabled');
                     
                 }); 
 
@@ -425,22 +429,26 @@ function consultar_admin() {
             if(response.status == 'success') {
                 var ItemsKanba = [];
                 response.result.forEach(function(registro, indice) {
-                    estado_registro = 'Asignado';
+                    estado_registro = 'Registrado';
                     switch (parseInt(registro.estado)) {
                         case 2:
-                            estado_registro = 'Análisis';
+                            estado_registro = 'Asignado';
                             break;
                         case 3:
-                            estado_registro = 'Verificación';
+                            estado_registro = 'Análisis';
                             break;
                         case 4:
+                            estado_registro = 'Verificación';
+                            break;
+                        case 5:
                             estado_registro = 'Finalizado';
                             break;
                     
                         default:
-                            estado_registro = 'Asignado';
+                            estado_registro = 'Registrado';
                             break;
                     }
+
                     html_resol = (registro.tipo_resolucion != '')?  `<div class="dvResolucion" data-key="${registro.id_key}"> Resoluci&oacute;n: ${registro.tipo_resolucion}</div>`:'';
                     title_html = `${registro.tipo_registro} 
                                 <div class="dvInfo"> ${registro.nombre} ${registro.apellido} 

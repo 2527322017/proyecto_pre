@@ -41,12 +41,15 @@ function consultar() {
                     estado_registro = 'Registrado';
                     switch (registro.estado) {
                         case 2:
-                            estado_registro = 'Análisis';
+                            estado_registro = 'Asignado';
                             break;
                         case 3:
-                            estado_registro = 'Verificación';
+                            estado_registro = 'Análisis';
                             break;
                         case 4:
+                            estado_registro = 'Verificación';
+                            break;
+                        case 5:
                             estado_registro = 'Finalizado';
                             break;
                     

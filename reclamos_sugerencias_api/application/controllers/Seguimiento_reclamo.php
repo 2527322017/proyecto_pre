@@ -286,20 +286,20 @@ class Seguimiento_reclamo extends CI_Controller {
 				$reg_caso = $q_existe[0];
 				switch ($estado) {
 					case 'Análisis':
-						$n_estado = 2;
+						$n_estado = 3;
 						$msj_estado = "Tu caso se encuentra en Análisis";
 						break;
 					case 'Verificación':
-						$n_estado = 3;
+						$n_estado = 4;
 						$msj_estado = "Tu caso se encuentra en Verificación";
 						break;
 					case 'Finalizado':
-						$n_estado = 4;
+						$n_estado = 5;
 						$msj_estado = "Tu caso se encuentra Finalizado";
 						break;
 					default:
-						$n_estado = 1;
-						$msj_estado = "Tu caso se encuentra en proceso"; //asignado
+						$n_estado = 2;
+						$msj_estado = "Tu caso se encuentra Asignado"; //asignado
 						break;
 				}
 				$datos_update = [];

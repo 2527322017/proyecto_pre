@@ -1,5 +1,4 @@
 <?php 
-
 class Router {
   
   private $load_page = 'inicio'; //default

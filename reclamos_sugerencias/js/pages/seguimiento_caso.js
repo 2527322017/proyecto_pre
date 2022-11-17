@@ -19,23 +19,27 @@ function consultar() {
             loader.close();
             var html_tbody = '';
             if(response.status == 'success') {
-                response.result.forEach(function(registro, indice) {
-                    estado_registro = 'En proceso';
+                response.result.forEach(function(registro, indice) { 
+                    estado_registro = 'Registrado';
                     switch (parseInt(registro.estado)) {
                         case 2:
-                            estado_registro = 'Análisis';
+                            estado_registro = 'Asignado';
                             break;
                         case 3:
-                            estado_registro = 'Verificación';
+                            estado_registro = 'Análisis';
                             break;
                         case 4:
+                            estado_registro = 'Verificación';
+                            break;
+                        case 5:
                             estado_registro = 'Finalizado';
                             break;
                     
                         default:
-                            estado_registro = 'En proceso';
+                            estado_registro = 'Registrado';
                             break;
                     }
+
                     asignacion  = '';
                     if(type_user == 1) {
                         asignacion  = `<td data="usuarios">${registro.usuarios}</td>`;

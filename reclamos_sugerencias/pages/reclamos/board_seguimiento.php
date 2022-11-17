@@ -1,9 +1,11 @@
 
 <div class="container">
 <h2>Tablero de trabajo 
-  <?=(TYPE_USER == 1)? '<select name="usuario_id"  class="form-control" style="width: 50%; display: inline-block;"><option value="">Seleccione</option></select>':NOMBRE_USUARIO?>
+  <?=(TYPE_USER == 1)? '<select name="usuario_id" disabled  class="form-control" style="width: 50%; display: inline-block;"><option value="">Cargando...</option></select>':NOMBRE_USUARIO?>
 </h2>
-<div id="kanban"></div>
+<div class="row" style="overflow-x:auto;">
+  <div id="kanban" style="min-width: 1100px;"></div>
+</div>
 </div>
 
 
@@ -179,16 +181,32 @@
       height: auto !important;
     }
     .cd_kanban_board_block[data-block="Asignado"] .cd_kanban_board_block_item {
-      border-left: 4px solid #00aaff !important;
+      /*border-left: 4px solid #00aaff !important; */
+      /*border: 1px solid #00aaff !important; */
+      box-shadow: -1px 1px 2px 1px #00aaffd9;
+      margin-bottom: 18px !important;
+      border-radius: 5px;
     }
     .cd_kanban_board_block[data-block="Análisis"] .cd_kanban_board_block_item {
-      border-left: 4px solid #ff921d !important;
+      /*border-left: 4px solid #ff921d !important;*/
+      /*border: 1px solid #ff921d !important;*/
+      box-shadow: -1px 1px 2px 1px #ff921dd9;
+      margin-bottom: 18px !important;
+      border-radius: 5px;
     }
     .cd_kanban_board_block[data-block="Verificación"] .cd_kanban_board_block_item {
-      border-left: 4px solid #ffe54b !important;
+     /*border-left: 4px solid #ffe54b !important;*/
+      /*border: 1px solid #ffe54b !important; */
+      box-shadow: -1px 1px 2px 1px #ffe54bd9;
+      margin-bottom: 18px !important;
+      border-radius: 5px;
     }
     .cd_kanban_board_block[data-block="Finalizado"] .cd_kanban_board_block_item {
-      border-left: 4px solid #00ff40 !important;
+      /*border-left: 4px solid #00ff40 !important;*/
+      /*border: 1px solid #00ff40 !important; */
+      box-shadow: -1px 1px 2px 1px #00ff40d9;
+      margin-bottom: 18px !important;
+      border-radius: 5px;
     } 
 
     .divBtnAcciones {
@@ -218,6 +236,21 @@
   text-align: center;
 }
 
+.cd_kanban_board_titles {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.cd_kanban_board>.cd_kanban_board_titles .cd_kanban_board_title:before {
+    width: 100% !important;
+    height: 88% !important;
+    background: #2a3f54  !important;
+}
+#modalInfo, #agregarModal, .swal2-container {
+  z-index: 9999 !important;
+}
 </style>
 
  <script src="<?=HOST?>js/pages/board_seguimiento.js"></script>

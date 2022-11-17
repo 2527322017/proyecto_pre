@@ -18,6 +18,15 @@ $(document).ready(function () {
                 $("#sidebar-menu a[href*='reclamos_sugerencias/page/']").parent().removeClass('current-page');
                 parentMenu.addClass('current-page');
                 parentMenu.addClass('active');
+                /*
+                setTimeout(() => {
+                    if($(this).parent().hasClass('active-sm')) { //si esta en modo responsive
+                        $(".current-page").parent().parent().find('a:first').trigger('click');
+                    } 
+                }, 1000);
+                */
+                
+
             }, 500);
         }
     });
