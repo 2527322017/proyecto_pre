@@ -93,10 +93,10 @@
                         </div>
                       </div>
                       <div class="panel">
-                        <a class="panel-heading collapsed" role="tab" id="lnkDatos4" data-toggle="collapse" data-parent="#accordion1" href="#datosSeguimiento" aria-expanded="false" aria-controls="collapseThree">
+                        <a class="panel-heading" role="tab" id="lnkDatos4" data-toggle="collapse" data-parent="#accordion1" href="#datosSeguimiento" aria-expanded="false" aria-controls="collapseThree">
                           <h5 class="panel-title">Seguimiento de caso</h5>
                         </a>
-                        <div id="datosSeguimiento" class="panel-collapse collapse" role="tabpanel" aria-labelledby="lnkDatos4" style="">
+                        <div id="datosSeguimiento" class="panel-collapse in collapse show" role="tabpanel" aria-labelledby="lnkDatos4" style="">
                           <div class="panel-body">
                           <table class="table table-hover">
                             <thead>
@@ -249,7 +249,7 @@
     background: #2a3f54  !important;
 }
 #modalInfo, #agregarModal, .swal2-container {
-  z-index: 9999 !important;
+  /*z-index: 9999 !important; */
 }
 </style>
 

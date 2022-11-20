@@ -1,5 +1,6 @@
 <?php
-session_start();
+ include("config/config.php");
+
 //preguntar si no hay sesion activa.
 if(isset($_SESSION['id_user']) && $_SESSION['id_user'] > 0) {
   header('Location: page/');
@@ -47,6 +48,12 @@ if(isset($_SESSION['id_user']) && $_SESSION['id_user'] > 0) {
    <script src="js/jquery/jquery.min.js"></script>
    <script src="js/validate/jquery.validate.min.js"></script>
    <script async>(function(w, d) { var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.setAttribute("src", "https://app.bluecaribu.com/conversion/integration/dc9c7f280cf3e917fa4be626eb97ea93"); h.appendChild(s); })(window, document);</script>
+   <script>
+        var proyecto_carpeta = "/<?=CARPETA_PROYECTO?>";
+        var proyecto_host = "<?=HOST?>";
+        var is_login = <?=IS_LOGIN?>;
+        var type_user = <?=TYPE_USER?>; 
+   </script>
   </head>
 
   <body class="login">

@@ -1,5 +1,5 @@
-var URL_AJAX = '/reclamos_sugerencias/procesar_datos/login';
-var URL_AJAX_RECOVERY = '/reclamos_sugerencias/procesar_datos/login__recuperar_clave';
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/login';
+var URL_AJAX_RECOVERY = proyecto_carpeta + 'procesar_datos/login__recuperar_clave';
 $(document).ready(function () {
     var validatorLogin = $("#frmLogin").validate( {
         rules: {

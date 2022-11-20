@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("body").on('click',"#sidebar-menu a[href*='reclamos_sugerencias/page/']", function(e) {
+    $("body").on('click',"#sidebar-menu a[href*='/page/']", function(e) {
         if($(".chatbot-iframe-container").length <= 0) { //si esta activo el chatbot recargar la pagina
             e.preventDefault();
             var href_page = $(this).attr('href');
@@ -14,10 +14,13 @@ $(document).ready(function () {
               });
     
             setTimeout(function() {
-                $("#sidebar-menu a[href*='reclamos_sugerencias/page/']").parent().removeClass('active');
-                $("#sidebar-menu a[href*='reclamos_sugerencias/page/']").parent().removeClass('current-page');
+                $("#sidebar-menu a[href*='/page/']").parent().removeClass('active');
+                $("#sidebar-menu a[href*='/page/']").parent().removeClass('current-page');
                 parentMenu.addClass('current-page');
                 parentMenu.addClass('active');
+                if(is_mobile()) {
+                    $("#menu_toggle").trigger('click');
+                }
                 /*
                 setTimeout(() => {
                     if($(this).parent().hasClass('active-sm')) { //si esta en modo responsive
@@ -82,6 +85,15 @@ var loader = {
         swal.close();
     }
 };
+
+function is_mobile() {
+    let navegador = navigator.userAgent;
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i) || window.innerWidth <= 780) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 //mensajes personalizados
 jQuery.extend(jQuery.validator.messages, {

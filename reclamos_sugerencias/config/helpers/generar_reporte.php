@@ -1,7 +1,19 @@
 <?php 
  session_start();
 include("router.php");
-require_once __DIR__ . '/mpdf/vendor/autoload.php';
+$v = phpversion(); 
+$vn = intval(substr($v,0,1)) ;
+if($vn == 8) {
+  require_once __DIR__ . '/mpdf/vendor/autoload.php';
+  $mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
+} else {
+  require_once __DIR__ . '/mpdf7/mpdf.php';
+  $vn = 7;
+  $mpdf=new mPDF(); 
+}
+
+$router = new Router();
+$host = $router->base_url();
 
 if($_POST && isset($_POST['table_reporte']) && isset($_POST['tipo_reporte']) ) {
 $titulo_reporte = 'Resolución de Reclamos y sugerencias';
@@ -9,9 +21,6 @@ $filtro = array_unique([$_POST['desde_'],$_POST['hasta_']]);
 $filtro = implode(' / ', $filtro);
 $file_name = 'Reporte_resolucion_casos';
 $cantidad_columnas = 8;
-
-$router = new Router();
-$host = $router->base_url();
 
 $logo = $host."images/sistema.png";
 
@@ -45,14 +54,17 @@ $html_header_excel = '
 
   $html_reporte = trim($_POST['table_reporte']);
   if($_POST['tipo_reporte'] == 1) {
-    $mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
     $footer = '<div align="center" style="border-top:1px solid black;" align="right"><b>Pág. {PAGENO} / {nb}</b></div>';
     $mpdf->SetHTMLFooter($footer);
     $mpdf->SetHTMLFooter($footer,'E');
     $mpdf->SetTitle('Reporte resolución');
+
+    if($vn == 7) {
+    	$mpdf->AddPage('L');
+    }
+
     $mpdf->WriteHTML($css_pdf,1);	
     $mpdf->WriteHTML($html_header_pdf.$html_reporte);
-
     $mpdf->Output($file_name.'.pdf', 'I');
   } else {
     $filename = $file_name.".xls";
@@ -61,4 +73,6 @@ $html_header_excel = '
     echo '<meta charset="utf-8">';
     echo $html_header_excel.$html_reporte;
   }
+} else {
+header("Location: $host");
 }

@@ -10,3 +10,7 @@ label.error {
   margin-top: 16px;
   font-size: 16px;
 }
+
+.img_burbuja span.text-light {
+  display: none !important;
+}

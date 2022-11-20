@@ -99,15 +99,18 @@ class Router {
 
 
   public function base_url($url=null) {
-    $carpeta_proyecto = explode('/', $_SERVER['REDIRECT_URL'])[1];
+    $protocolo =(substr_count(strtolower($_SERVER['SERVER_PROTOCOL']), 'https') > 0)? 'https':'http';
+    $n_position = (substr_count($_SERVER['SERVER_NAME'],'azure') > 0)? 0:1;
+
+    $carpeta_proyecto = explode('/', $_SERVER['REDIRECT_URL'])[$n_position];
     $carpeta_proyecto = (trim($carpeta_proyecto) == '')? '': $carpeta_proyecto.'/';
-    return $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'] . '/' . $carpeta_proyecto . trim($url);
+    return $protocolo.'://'.$_SERVER['HTTP_HOST'] . '/' . $carpeta_proyecto . trim($url);
   }
 
   public function carpeta_proyecto() {
     $carpeta_proyecto = explode('/', $_SERVER['REDIRECT_URL'])[1];
     $carpeta_proyecto = (trim($carpeta_proyecto) == '')? '/': $carpeta_proyecto.'/';
-    return $carpeta_proyecto;
+    return (substr_count($_SERVER['SERVER_NAME'],'azure') > 0)? '':$carpeta_proyecto;
   }
 
   public function set_pages_user($tipo_usuario) {

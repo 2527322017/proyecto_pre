@@ -118,6 +118,7 @@ class Seguimiento_reclamo extends CI_Controller {
 				$datos_insert['registro_caso_id'] 	= $id;
 				$datos_insert['comentario'] 	= trim($request['comentario']);
 				$datos_insert['fecha_registro'] = date('Y-m-d H:i:s');
+				$datos_insert['estado_seg'] 	= $q_existe[0]['estado']; //identificar en que estado se da el seguimiento
 				$datos_insert['estado'] 	= (isset($request['estado']) && $request['estado'] >= 0)? $request['estado']:1;
 				$datos_insert['fecha_crea'] = date('Y-m-d H:i:s');
 				$datos_insert['fecha_mod'] 	= date('Y-m-d H:i:s');
@@ -275,7 +276,7 @@ class Seguimiento_reclamo extends CI_Controller {
 		}
 		$estado = (isset($request['estado']) &&  trim($request['estado']) !='')? $request['estado']:'';
 		$id = (isset($request['id']) && $request['id']>0)? $request['id']: 0;
-		
+
 		$response = [];
 		if($id > 0  && $estado != '' ) { 
 			$q_existe = $this->model_proceso->consultar(['primary_key'=>trim($id)], false);
@@ -308,8 +309,25 @@ class Seguimiento_reclamo extends CI_Controller {
 				$datos_update['estado'] = $n_estado;
 				$condicion['primary_key']	= $id;
 				$this->model_proceso->actualizar($datos_update,$condicion);
+				
+				//agregar seguimiento para bitacora
+				$estado_ant = get_estado_seguimiento($q_existe[0]['estado']);
+				$datos_insert_seg['registro_caso_id'] 	= $id;
+				$datos_insert_seg['comentario'] 	= "Cambio de estado de ". $estado_ant ." a " . $estado;
+				$datos_insert_seg['fecha_registro'] = date('Y-m-d H:i:s');
+				$datos_insert_seg['estado_seg'] 	= $q_existe[0]['estado']; //identificar en que estado se da el seguimiento
+				$datos_insert_seg['estado_seg_cambio'] 	= $n_estado; //identificar el nuevo estado
+				$datos_insert_seg['estado'] 	= 1;
+				$datos_insert_seg['fecha_crea'] = date('Y-m-d H:i:s');
+				$datos_insert_seg['fecha_mod'] 	= date('Y-m-d H:i:s');
+				$datos_insert_seg['usu_crea'] 	= (isset($request['id_user']) && $request['id_user'] > 0)? $request['id_user']:0;
+				$datos_insert_seg['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:0;
+				$datos_insert_seg['usuario_id'] = (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:0;
+				
+				$id_insert_seg = $this->model_proceso->ingresar_seguimiento($datos_insert_seg);
+
 				$response['status'] = "success";
-				$response['result'] = ['id'=>$id];
+				$response['result'] = ['id'=>$id, 'id_seg'=>$id_insert_seg];
 	
 				//enviar sms
 				$response['sms'] = 'Problemas en notificar via SMS';

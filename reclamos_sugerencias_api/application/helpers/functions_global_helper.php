@@ -19,6 +19,7 @@ function validar_acceso()
 
 function sendSMS($telefono="", $mensaje="")
 {
+    return '';
     $telefono = (trim($telefono) != '')? preg_replace('/\D/', '', $telefono):'';
     $mensaje = (trim($mensaje) != '')? trim($mensaje):'';
     if($telefono == '' || $mensaje == '' ) {
@@ -51,6 +52,8 @@ function sendSMS($telefono="", $mensaje="")
 
 function sendMail($correo='', $name = "", $html_mensaje = "")
 {
+    return '';
+
     $data = [];
     $data['mensaje'] = $html_mensaje;
     $data['correo'] = $correo;
@@ -115,4 +118,52 @@ function sendMailBK($correo='', $name = "", $html_mensaje = "")
     else {
         return "Error en enviar correo";
     }
+}
+
+function get_estado_seguimiento($estado = null) {
+    $status = 1;
+    if($estado) {
+        if(is_numeric($estado) && $estado > 0) { //si es numero retornar string
+            $status = 'Registrado';
+            switch (intval($estado)) {
+                case 2:
+                    $status = 'Asignado';
+                    break;
+                case 3:
+                    $status = 'Análisis';
+                    break;
+                case 4:
+                    $status = 'Verificación';
+                    break;
+                case 5:
+                    $status = 'Finalizado';
+                    break;
+                default:
+                    $status = 'Registrado';
+                    break;
+            }
+         }
+         else if(trim($estado) != '') {
+            $status = 1;
+            switch (trim($estado)) {
+                case 'Asignado':
+                    $status = 2;
+                    break;
+                case 'Análisis':
+                    $status = 3;
+                    break;
+                case 'Verificación':
+                    $status = 4;
+                    break;
+                case 'Finalizado':
+                    $status = 5;
+                    break;
+                default:
+                    $status = 1;
+                    break;
+            }
+         }
+
+    }
+    return $status;
 }

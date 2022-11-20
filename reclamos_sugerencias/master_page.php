@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sistema de reclamos</title>
+    <link rel="shortcut icon" type="image/png" href="<?=HOST?>images/favicon.png?v=2">
     <!-- Bootstrap -->
     <link href="<?=HOST?>css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -55,7 +56,7 @@
                         </div>
                         <div class="profile_info">
                             <span>Bienvenid@,</span>
-                            <h2><?=NOMBRE_USUARIO?></h2>
+                            <h2><?=NOMBRE_USUARIO_SMALL?></h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -142,11 +143,11 @@
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <nav class="nav navbar-nav">
-                    <div class="headerTitle">Hospital Especializado Rosales</div>
+                    <div class="headerTitle">Hospital Rosales</div>
                         <ul class=" navbar-right">
                             <li class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="<?=HOST?>images/user.png" alt=""><?=NOMBRE_USUARIO?>
+                                    <img src="<?=HOST?>images/user.png" alt=""><?=NOMBRE_USUARIO_SMALL?>
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="<?=HOST?>page/perfil"> Perfil</a>
@@ -168,7 +169,7 @@
             <!-- footer content -->
             <footer>
                 <div class="pull-right">
-                    Sistema de reclamos y sugerencias - &copy; Todos los derechos reservados 
+                    Sistema de reclamos y sugerencias - &copy; Todos los derechos reservados HNER
                 </div>
                 <div class="clearfix"></div>
             </footer>

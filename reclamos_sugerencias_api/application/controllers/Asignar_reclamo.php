@@ -73,6 +73,23 @@ class Asignar_reclamo extends CI_Controller {
 				$condicion['primary_key']	= $id;
 				
 				$this->model_proceso->actualizar($datos_update,$condicion);
+
+				//agregar seguimiento para bitacora
+				$estado_ant = get_estado_seguimiento($q_existe[0]['estado']);
+				$datos_insert_seg['registro_caso_id'] 	= $id;
+				$datos_insert_seg['comentario'] 	= "Cambio de estado de ". $estado_ant ." a Asignado";
+				$datos_insert_seg['fecha_registro'] = date('Y-m-d H:i:s');
+				$datos_insert_seg['estado_seg'] 	= $q_existe[0]['estado']; //identificar en que estado se da el seguimiento
+				$datos_insert_seg['estado_seg_cambio'] 	= 2; //identificar el nuevo estado
+				$datos_insert_seg['estado'] 	= 1;
+				$datos_insert_seg['fecha_crea'] = date('Y-m-d H:i:s');
+				$datos_insert_seg['fecha_mod'] 	= date('Y-m-d H:i:s');
+				$datos_insert_seg['usu_crea'] 	= (isset($request['id_user']) && $request['id_user'] > 0)? $request['id_user']:0;
+				$datos_insert_seg['usu_mod'] 	= (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:0;
+				$datos_insert_seg['usuario_id'] = (isset($request['id_user'])  && $request['id_user'] > 0)? $request['id_user']:0;
+				
+				$id_insert_seg = $this->model_proceso->ingresar_seguimiento($datos_insert_seg);
+
 				$response = [];
 				$response['status'] = "success";
 				$response['result'] = ['id'=>$id];
