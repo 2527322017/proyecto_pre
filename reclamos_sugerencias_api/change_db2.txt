@@ -5,3 +5,6 @@ ALTER TABLE `seguimiento`
 ADD COLUMN `estado_seg`  int(11) NULL DEFAULT NULL COMMENT ' (donde se ejecuta el seguimiento)  1. Registrado, 2. Asignado, 3. Analisis, 4. Verificación, 5. Finalizado' AFTER `envio_correo`,
 ADD COLUMN `estado_seg_cambio`  int(11) NULL DEFAULT NULL COMMENT '(el nuevo estado actualizado) 1. Registrado, 2. Asignado, 3. Analisis, 4. Verificación, 5. Finalizado' AFTER `estado_seg`;
 
+ALTER TABLE `seguimiento`
+MODIFY COLUMN `estado`  int(11) NOT NULL COMMENT 'Estado de registro.' AFTER `estado_seg_cambio`;
+
