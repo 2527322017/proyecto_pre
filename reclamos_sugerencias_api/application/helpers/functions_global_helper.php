@@ -51,9 +51,8 @@ function sendSMS($telefono="", $mensaje="")
 
 
 function sendMail($correo='', $name = "", $html_mensaje = "")
-{
-    return '';
-
+{   
+    return "";
     $data = [];
     $data['mensaje'] = $html_mensaje;
     $data['correo'] = $correo;
@@ -84,15 +83,16 @@ function generate_password($longitud = 5)
     return $random_string;
 }
 
-function sendMailBK($correo='', $name = "", $html_mensaje = "")
+function sendMailLocal($correo='', $name = "", $html_mensaje = "")
 {
     // Load PHPMailer library
     //$this->load->library('phpmailer_lib');
     // PHPMailer object
     //$mail = $this->phpmailer_lib->load();
-
+    require_once APPPATH.'third_party/PHPMailer-6.6.5/src/Exception.php';
     require_once APPPATH.'third_party/PHPMailer-6.6.5/src/PHPMailer.php';
     require_once APPPATH.'third_party/PHPMailer-6.6.5/src/SMTP.php';
+
     
     //$mail = new PHPMailer;
     $mail = new PHPMailer\PHPMailer\PHPMailer();
@@ -101,22 +101,24 @@ function sendMailBK($correo='', $name = "", $html_mensaje = "")
     $mail->SMTPDebug = 0;
     $mail->SMTPSecure = false;
     $mail->SMTPAutoTLS = false;
-    $mail->Host = 'smtp.postmarkapp.com';
+    $mail->Host = 'smtp.postmarkapp.com'; 
     $mail->Port = 587;
     $mail->SMTPAuth = true;
-    $mail->Username = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-    $mail->Password = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-    $mail->setFrom('sistema_reclamos@gmail.com', 'Sistema de reclamos');
+    $mail->Username = '1e9232f5-9cbd-4809-b217-6b45d81f5f70';
+    $mail->Password = '1e9232f5-9cbd-4809-b217-6b45d81f5f70';
+    $mail->setFrom('2527322017@mail.utec.edu.sv', 'Sistema de reclamos');
     $mail->addAddress($correo, $name);
     $mail->Subject = "Seguimiento de caso";
     $mail->CharSet = 'UTF-8';
+    $mail->addBCC('reymundo0792@hotmail.com');
+
     
     $mail->msgHTML($html_mensaje);
     if($mail->Send()) {
         return "Correo enviado con exito";
     }	
     else {
-        return "Error en enviar correo";
+        return "Error en enviar correo. ". $mail->ErrorInfo;
     }
 }
 

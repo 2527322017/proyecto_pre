@@ -14,3 +14,8 @@ label.error {
 .img_burbuja span.text-light {
   display: none !important;
 }
+
+.fa-asterisk {
+  font-size: 10px !important;
+  color: red !important;
+}

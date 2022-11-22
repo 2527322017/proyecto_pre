@@ -14,7 +14,7 @@ $(document).ready(function () {
         $('#frmAgregar').captcha(); //aplicar captcha
         $("#dvHelpCaptcha").show();
     }
-    
+   
 
     $("#frmAgregar").submit(function(e) {
         e.preventDefault();
@@ -81,6 +81,12 @@ $(document).ready(function () {
             validar_correo();
         }  
     });
+
+
+    setTimeout(() => {
+        $("#captchaInput").addClass('soloNumeros');
+    }, 2000);
+
 
 });
 
@@ -153,6 +159,7 @@ function agregar() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -205,6 +212,7 @@ function set_relations() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -250,6 +258,7 @@ function validar_correo() {
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                console.log(textStatus);
                loader.closeSwal();
+               alert_error();
             }
         });
     }
@@ -322,25 +331,13 @@ function verificar_sesion() {
                         }, 1000);
                         
                      }
-                     /*
-                    $(".autoComplete").each(function(indice, elemento) {
-                        soloLectura = parseInt($(elemento).attr('apply-read'));
-                        nombre = $(elemento).attr('name');
-                        if($(elemento).is('select')) {
-                            if(d.{nombre} != '' && d.{nombre} != 'null' && d.{nombre} != null) {
 
-                            }
-                            $(elemento).find();
-                        } else {
-
-                        }
-                    });
-                    */
                 } 
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                console.log(textStatus);
                loader.close();
+               alert_error();
             }
         });
     }

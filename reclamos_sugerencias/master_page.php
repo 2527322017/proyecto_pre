@@ -96,10 +96,10 @@
                                 <?php if(TYPE_USER == 1) { ?>
                                 <li><a><i class="fa fa-bar-chart-o"></i> Reportes <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="<?=HOST?>page/reporte1">Reclamos y resoluciones</a></li>
-                                        <li><a href="<?=HOST?>page/reporte2">Total de sugerencias</a></li>
+                                        <li><a href="<?=HOST?>page/reporte1">Resoluciones de reclamos y sugerencias</a></li>
+                                        <li><a href="<?=HOST?>page/reporte2">Registro de reclamos/sugerencias</a></li>
                                         <li><a href="<?=HOST?>page/reporte3">Estadisticas por resolución</a></li>
-                                        <li><a href="<?=HOST?>page/reporte4">Estadisticas de sugerencias</a></li>
+                                        <li><a href="<?=HOST?>page/reporte4">Estadisticas de reclamo/sugerencias</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-bar-chart-o"></i> Configuración <span class="fa fa-chevron-down"></span></a>

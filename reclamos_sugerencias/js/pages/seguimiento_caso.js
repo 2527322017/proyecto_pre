@@ -70,6 +70,7 @@ function consultar() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -179,6 +180,7 @@ function ver_detalle(id_caso) {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
    

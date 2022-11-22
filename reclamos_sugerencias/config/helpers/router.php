@@ -61,6 +61,15 @@ class Router {
       case 'reporte1':
         $this->include_page = 'pages/reportes/reclamos_resoluciones.php';
         break;
+      case 'reporte2':
+        $this->include_page = 'pages/reportes/casos_tipo_registro.php';
+        break;
+      case 'reporte3':
+        $this->include_page = 'pages/reportes/estadistica_resolucion.php';
+        break;
+      case 'reporte4':
+        $this->include_page = 'pages/reportes/estadistica_casos.php';
+        break;
       case 'perfil':
         $this->include_page = 'pages/system/perfil.php';
         break;

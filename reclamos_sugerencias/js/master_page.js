@@ -33,6 +33,27 @@ $(document).ready(function () {
             }, 500);
         }
     });
+
+
+    $("body").on("keypress", ".soloLetras" , function(e) {
+        if ($(this).attr('extras')) {
+            var masC = $(this).attr('extras');
+            return soloLetras(e, masC);
+        } else {
+            return soloLetras(e, '');
+        }
+    });
+
+    $("body").on("keypress", ".soloNumeros" , function(e) {
+        if ($(this).attr('extras')) {
+            var masC = $(this).attr('extras');
+            return soloNumeros(e, masC);
+        } else {
+            return soloNumeros(e, '');
+        }
+    });
+
+
 });
 
 var loader = {
@@ -115,3 +136,47 @@ jQuery.extend(jQuery.validator.messages, {
     max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
     min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
 });
+
+function soloLetras(e, masCaracteres) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    if (tecla == '\'' || tecla == '%' || tecla == '"' ) { return false;} 
+    letras = " áéíóúabcdefghijklmnñopqrstuvwxyz" + masCaracteres;
+    especiales = [8,37,39,46,13,9];
+    // especiales = [13];
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial)
+     {    return false; }
+}
+
+function soloNumeros(e, masCaracteres) {
+    key = e.keyCode || e.which;
+    tecla = String.fromCharCode(key).toLowerCase();
+    if (tecla == '\'' || tecla == '%' || tecla == '"' ) { return false;} 
+    letras = " 1234567890.-" + masCaracteres;
+    especiales = [8,37,39,46,13,9];
+    // especiales = [13];
+
+    tecla_especial = false
+    for (var i in especiales) {
+        if (key == especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    if (letras.indexOf(tecla) == -1 && !tecla_especial)
+     {    return false; }
+}
+
+function alert_error() {
+    swal.fire("Server Error", "Error de servidor, favor intentar más tarde", "error");
+}

@@ -1,10 +1,10 @@
-var URL_AJAX = proyecto_carpeta + 'procesar_datos/reportes__reclamos_resoluciones';
-var URL_AJAX_LOCAL = proyecto_carpeta + 'generar_reporte/reporte_resoluciones';
-
+var URL_AJAX = proyecto_carpeta + 'procesar_datos/reportes__casos_tipo_registro';
+var URL_AJAX_LOCAL = proyecto_carpeta + 'generar_reporte/reporte_tipo_registro';
+var URL_AJAX_RELATION = proyecto_carpeta + 'procesar_datos/reportes__filtros_relations';
+var DATOS_MUNICIPIO = [];
 $(document).ready(function () {
-
-    //consultar(); //llamar al cargar la pagina
-    mostrar_datos('');
+    mostrar_datos('');//limpiar la tabla
+    set_relations(); //llenar los selectores relacionados
     var validatorFrm = $("#frmConsultar").validate();
     $("#frmConsultar").submit(function(e) {
         e.preventDefault();
@@ -28,6 +28,20 @@ $(document).ready(function () {
         $("#frmReporteExport").attr('action',URL_AJAX_LOCAL);
         $("#frmReporteExport").submit();
     });
+
+    $("#frmConsultar select[name='departamento_id']").change(function (e) { 
+        var html_option = '<option value="">Seleccione</option>';
+        var id_depto = $(this).val();
+        if(DATOS_MUNICIPIO.length > 0 && id_depto > 0) {
+            municipiosxdepto = DATOS_MUNICIPIO.filter(muni => muni.departamento_id == id_depto);
+
+            municipiosxdepto.forEach(function(data, indice2) { 
+                html_option += '<option value="'+data.id_key+'">'+data.value+'</option>';
+            });  
+        }
+        $("#frmConsultar select[name='municipio_id']").html(html_option);    
+    });
+
 });
 
 
@@ -65,16 +79,19 @@ function consultar() {
                             estado_registro = 'Registrado';
                             break;
                     }
-                    fechaCrea = registro.fecha_crea.split(' ');
+                    
                     html_tbody += `<tr nobre="true">
-                                <td>${fechaCrea[0]}</td>
+                                <td>${registro.fecha_crea}</td>
                                 <td>${registro.codigo}</td>
                                 <td>${registro.tipo_registro}</td>
                                 <td>${registro.nombre} ${registro.apellido}</td>
+                                <td>${registro.genero}</td>
+                                <td>${registro.correo}</td>
+                                <td>${registro.departamento}</td>
+                                <td>${registro.municipio}</td>
                                 <td>${registro.tipo_cliente}</td>
+                                <td>${registro.area_salud}</td>
                                 <td>${estado_registro}</td>
-                                <td>${registro.tipo_resolucion}</td>
-                                <td>${registro.usuarios}</td>
                              </tr>`;
                 });
 
@@ -109,4 +126,46 @@ function mostrar_datos(html) {
 }
 
 
+//Llenar los selectores relacionados
+function set_relations() {
+    $.ajax({
+        type: "GET",
+        url: URL_AJAX_RELATION,
+        dataType: "json",
+        beforeSend: function() {
+          loader.open('',true);
+        },
+        success: function (response) {
+            loader.close();
+            var html_tbody = '';
+            if(response.status == 'success') {
+                var keys = Object.keys(response.result);
+                var values = Object.values(response.result);
+                keys.forEach(function(relation, indice) {
+                    var html_option = '<option value="">Seleccione</option>';
+                    if(values[indice].length > 0) {
+                        values[indice].forEach(function(data, indice2) { 
+                            extra_field = (data.data_extra != '')? 'data_extra="'+data.data_extra+'" ':'';
+                            html_option += '<option value="'+data.id_key+'" '+extra_field+' >'+data.value+'</option>';
+                        });
+                    }
 
+                    //llenar los selectores
+                    $("#frmConsultar select[name='"+relation+"']").html(html_option);
+
+                    //condicionar selectore especiales.
+                    if(relation == 'municipio_id') {
+                        DATOS_MUNICIPIO = values[indice];
+                        $("#frmConsultar select[name='"+relation+"']").html('<option value="">Seleccione</option>');
+                    }
+                    
+                }); 
+            }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+           console.log(textStatus);
+           loader.close();
+           alert_error();
+        }
+    });
+}

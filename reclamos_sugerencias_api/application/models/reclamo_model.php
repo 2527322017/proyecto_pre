@@ -207,5 +207,92 @@ class Reclamo_model extends CI_Model
     return  $this->db->get()->result_array();
   }
 
+  public function consultar_estadistico($where=null, $groupBy = null) {
+    //defecto por mes
+    $q_groupBy = "MONTH(c.fecha_crea)";
+    $q_select = "COUNT(c.id_registro_caso) n, MONTH(c.fecha_crea)  valor";
+    
+    if($groupBy == 1) { //por tipo resolucion
+      $q_groupBy = "r.id_tipo_res";
+      $q_select = "COUNT(c.id_registro_caso) n, r.nombre valor";
+    }
+    
+    if($groupBy == 2) { //por tipo de registro
+      $q_groupBy = "t.id_tipo_reg";
+      $q_select = "COUNT(c.id_registro_caso) n, t.nombre valor";
+    }
+
+    $this->db->select($q_select)
+   ->from("$this->table_model c")
+   ->join('tipo_resolucion r', 'r.id_tipo_res=c.tipo_res_id')
+   ->join('tipo_registro t', 't.id_tipo_reg=c.tipo_reg_id')
+   ;
+   if($where) {
+     $this->db->where($where);
+   }
+   $this->db->order_by('c.fecha_crea','ASC');
+   $this->db->group_by($q_groupBy);
+
+
+   $datos = $this->db->get()->result_array();
+   return $datos;
+  }
+
+  public function consultar_estadistico_registro($where=null, $groupBy = null) {
+    //defecto por mes
+    $q_groupBy = "MONTH(c.fecha_crea)";
+    $q_select = "COUNT(c.id_registro_caso) n, MONTH(c.fecha_crea)  valor";
+    
+    if($groupBy == 1) { //por area
+      $q_groupBy = "a.id_area_sal";
+      $q_select = "COUNT(c.id_registro_caso) n, a.nombre valor";
+    }
+    
+    if($groupBy == 2) { //por tipo de registro
+      $q_groupBy = "tr.id_tipo_reg";
+      $q_select = "COUNT(c.id_registro_caso) n, tr.nombre valor";
+    }
+
+    if($groupBy == 3) { //por tipo genero
+      $q_groupBy = "g.id_genero";
+      $q_select = "COUNT(c.id_registro_caso) n, g.nombre valor";
+    }
+
+    if($groupBy == 4) { //tipo cliente
+      $q_groupBy = "tc.id_tipo_cli";
+      $q_select = "COUNT(c.id_registro_caso) n, tc.nombre valor";
+    }
+
+    if($groupBy == 5) { //estado
+      $q_groupBy = "c.estado";
+      $q_select = "COUNT(c.id_registro_caso) n,  c.estado valor,
+      (CASE c.estado 
+      WHEN 1 THEN 'Registrado'
+      WHEN 2 THEN 'Asignado'
+      WHEN 3 THEN 'Análisis'
+      WHEN 4 THEN 'Verificación'
+      WHEN 5 THEN 'Finalizado'
+      ELSE 'Registrado'
+      END ) valor2";
+    }
+
+    $this->db->select($q_select)
+   ->from("$this->table_model c")
+   ->join('area_salud a', 'a.id_area_sal=c.area_sal_id')
+   ->join('genero g', 'g.id_genero=c.genero_id')
+   ->join('tipo_cliente tc', 'tc.id_tipo_cli=c.tipo_cli_id')
+   ->join('tipo_registro tr', 'tr.id_tipo_reg=c.tipo_reg_id')
+   ;
+   if($where) {
+     $this->db->where($where);
+   }
+   $this->db->order_by('c.fecha_crea','ASC');
+   $this->db->group_by($q_groupBy);
+
+
+   $datos = $this->db->get()->result_array();
+   return $datos;
+  }
+
 }
 ?>

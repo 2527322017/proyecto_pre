@@ -76,6 +76,7 @@ function consultar() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }

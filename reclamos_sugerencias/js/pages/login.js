@@ -87,6 +87,7 @@ function login() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -126,6 +127,7 @@ function login_recover() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.closeSwal();
+           alert_error();
         }
     });
 }
@@ -181,3 +183,7 @@ var loader = {
         swal.close();
     }
 };
+
+function alert_error() {
+    swal.fire("Server Error", "Error de servidor, favor intentar más tarde", "error");
+}

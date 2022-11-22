@@ -47,7 +47,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
                                 class="fa fa-asterisk" style='color: red'></i> Nombres</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input type="text" name="nombre" required="required" class="form-control autoComplete" apply-read = "1">
+                            <input type="text" name="nombre" minlength = "3" maxlength = "100"  required="required" class="form-control autoComplete soloLetras" apply-read = "1">
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" ><i
                                 class="fa fa-asterisk" style='color: red'></i> Apellidos</label>
                         <div class="col-md-9 col-sm-9 ">
-                            <input type="text" name="apellido" required="required" class="form-control autoComplete" apply-read = "1">
+                            <input type="text" minlength = "3" maxlength = "100"  name="apellido" required="required" class="form-control autoComplete soloLetras" apply-read = "1">
                         </div>
                     </div>
                 </div>
@@ -205,10 +205,6 @@
                     </div>
                 </div>
 
-
-
-
-
                 <div class="col-md-12">
                     <div class="item form-group">
                         <label class="col-sm-2 control-label label-align" ><i
@@ -219,8 +215,7 @@
                             ¿Cuándo ocurrió?
                         </label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" name="descripcion" required style="height: 10em;"
-                                data-parsley-trigger="keyup"></textarea>
+                            <textarea class="form-control" minlength = "10" maxlength = "5000"  name="descripcion" required style="height: 10em;"></textarea>
                         </div>
                     </div>
                 </div>
@@ -264,6 +259,12 @@
     margin-right: 5px;
     font-size: 20px;
 }
+
+#captchaInput-error {
+    position: absolute;
+    top: 100%;
+    left: 10px;
+}
 </style>
 
 <!-- MODAL PARA ENVIAR -->
@@ -303,5 +304,14 @@
         }
     }
     $("#adjuntar_archivos").uploader({multiple: true, ajaxConfig: ajaxConfig,autoUpload: true})
+    //https://simpleupload.michaelcbrook.com/#examples
+    //https://formstone.it/components/upload/
+    //https://formstone.it/components/upload/demo/
+    //https://www.cssscript.com/demo/drag-and-file-uploader-vanilla-javascript/
+    //https://www.cssscript.com/demo/file-uploader-preview-file-upload-preview-js/
+    //https://www.dropzone.dev/
+    //https://slashuploader.com/#demos
+    //https://www.jqueryscript.net/demo/Fancy-File-Uploader-jQuery/
+    //https://www.remove.bg/es/upload quitar fondo
 */
 </script>

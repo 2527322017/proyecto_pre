@@ -27,9 +27,6 @@ $(document).ready(function () {
 
 });
 
-
-
-
 function consultar() {
     $.ajax({
         type: "GET",
@@ -61,6 +58,7 @@ function consultar() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -107,6 +105,7 @@ function agregar() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -153,6 +152,7 @@ function editar() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -198,6 +198,7 @@ function eliminar(id_registro) {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }

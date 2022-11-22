@@ -8,38 +8,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^(.*)$ $1.php
 
-#RewriteCond %{HTTPS} !=on 
-#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
-#Header always set Content-Security-Policy "upgrade-insecure-requests;"
 
-# -----------------------------------------------------------------------
-# | RewriteRule                                                         |
-# -----------------------------------------------------------------------
-RewriteRule ^areas.*$				/reclamos_sugerencias/pages/catalogos/area_salud.php [L]
 RewriteRule ^page/([^/]*)$				/reclamos_sugerencias/master_page.php?page=$1 [L]
 RewriteRule ^procesar_datos/([^/]*)$				/reclamos_sugerencias/config/helpers/procesar.php?service=$1 [L]
-RewriteRule ^generar_reporte/([^/]*)$				/reclamos_sugerencias/config/helpers/generar_reporte.php?datos=$1 [L]
-
-
-# Prevent SQL injections
-# Prevenzione SQL injections
-RewriteCond %{QUERY_STRING} UNION([%20\ /\*+]*)ALL([%20\ /\*+]*)SELECT [NC,OR]
-RewriteCond %{QUERY_STRING} UNION([%20\ /\*+]*)SELECT [NC,OR]
-RewriteCond %{QUERY_STRING} /\* [NC,OR]
-RewriteCond %{QUERY_STRING} \*/ [NC]
-RewriteRule ^.* - [F]
-RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [OR]
-#RewriteCond %{QUERY_STRING} http:.*\/.*\/ [OR]
-RewriteCond %{QUERY_STRING} ..*\/ [OR]
-RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
-RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
-RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
-RewriteCond %{QUERY_STRING} [^az](declare|char|set|cast|convert|delete|drop|exec|insert|meta|script|select|truncate|update)[^a-z] [NC]
-RewriteRule (.*) - [F]
-
-# Extra Security Headers
-<IfModule mod_headers.c>
-	Header set X-XSS-Protection "1; mode=block"
-	#Header always append X-Frame-Options SAMEORIGIN
-	Header set X-Content-Type-Options nosniff
-</IfModule>
+RewriteRule ^generar_reporte/([^/]*)$				/reclamos_sugerencias/config/helpers/generar_reporte.php?file_reporte=$1 [L]

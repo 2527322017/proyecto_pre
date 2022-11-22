@@ -303,6 +303,7 @@ function ver_detalle(id_caso) {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
    
@@ -321,15 +322,9 @@ function set_relations() {
             loader.close();
             var html_tbody = '';
             if(response.status == 'success') {
-                console.log(response.result);
                 var keys = Object.keys(response.result);
                 var values = Object.values(response.result);
-                console.log(keys);
-                console.log(values);
-
                 keys.forEach(function(relation, indice) {
-                   // console.log(relation);
-                  //  console.log(indice);
                     var html_option = '<option value="">Seleccione</option>';
                     if(values[indice].length > 0) {
                         values[indice].forEach(function(data, indice2) { 
@@ -367,7 +362,8 @@ function agregar_seguimiento(id) {
 }
 
 function agregar_seguimiento_caso() {
-    
+    var tipo_resolucion = $("#frmAgregar select[name='tipo_res_id']").val();
+    var idRegistro = $("#frmAgregar input[name='id']").val();
     $.ajax({
         type: "POST",
         url: URL_AJAX,
@@ -379,7 +375,11 @@ function agregar_seguimiento_caso() {
         success: function (response) {
             loader.close();
             if(response.status == 'success') {
-                //consultar();
+                
+                if(tipo_resolucion > 0) { //si se selecciono resolución enviar a finalizado
+                    update_seguimiento(idRegistro, 'Finalizado', 1);
+                } 
+
                 Swal.fire({
                    // position: 'top-end',
                     icon: 'success',
@@ -389,9 +389,11 @@ function agregar_seguimiento_caso() {
                     confirmButtonText: 'Aceptar'
                    // timer: 10000
                   }).then((result) => {
-                    if($("#frmAgregar select[name='tipo_res_id']").val() > 0) { //si se selecciono resolución enviar a finalizado
-                        update_seguimiento($("#frmAgregar input[name='id']").val(), 'Finalizado', 1);
-                    }                    
+                   /*
+                    if(tipo_resolucion > 0) { //si se selecciono resolución enviar a finalizado
+                        update_seguimiento(idRegistro, 'Finalizado', 1);
+                    } 
+                     */                
                   });
 
                   $("#frmAgregar").trigger("reset");
@@ -411,6 +413,7 @@ function agregar_seguimiento_caso() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -478,6 +481,7 @@ function consultar_admin() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }

@@ -84,6 +84,7 @@ function consultar() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -130,6 +131,7 @@ function editar() {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
 }
@@ -191,15 +193,10 @@ function set_relations() {
             loader.close();
             var html_tbody = '';
             if(response.status == 'success') {
-                console.log(response.result);
                 var keys = Object.keys(response.result);
                 var values = Object.values(response.result);
-                console.log(keys);
-                console.log(values);
 
                 keys.forEach(function(relation, indice) {
-                   // console.log(relation);
-                  //  console.log(indice);
                     var html_option = '<option value="">Seleccione</option>';
                     if(values[indice].length > 0) {
                         values[indice].forEach(function(data, indice2) { 
@@ -316,6 +313,7 @@ function ver_detalle(id_caso) {
         error: function(XMLHttpRequest, textStatus, errorThrown) {
            console.log(textStatus);
            loader.close();
+           alert_error();
         }
     });
    
