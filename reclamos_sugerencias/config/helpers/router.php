@@ -73,6 +73,12 @@ class Router {
       case 'perfil':
         $this->include_page = 'pages/system/perfil.php';
         break;
+      case 'preguntas_frecuentes':
+        $this->include_page = 'pages/info/preguntas_frecuentes.php';
+        break;
+      case 'contactanos':
+        $this->include_page = 'pages/info/contactanos.php';
+        break;
       default:
         $this->include_page = 'pages/system/no_found.php';
         break;
@@ -108,7 +114,7 @@ class Router {
 
 
   public function base_url($url=null) {
-    $protocolo =(substr_count(strtolower($_SERVER['SERVER_PROTOCOL']), 'https') > 0)? 'https':'http';
+    $protocolo = (substr_count(strtolower($_SERVER['SERVER_NAME']), 'azure') > 0)? 'https':'http';
     $n_position = (substr_count($_SERVER['SERVER_NAME'],'azure') > 0)? 0:1;
 
     $carpeta_proyecto = explode('/', $_SERVER['REDIRECT_URL'])[$n_position];
@@ -127,13 +133,13 @@ class Router {
       $this->page_access = ['all']; //all  = todas
     }
     else if($tipo_usuario == 2) { //tecnico encargado
-      $this->page_access = ['reclamo', 'consulta_estado','seguimiento_caso', 'board_seguimiento', 'perfil'];
+      $this->page_access = ['reclamo', 'consulta_estado','seguimiento_caso', 'board_seguimiento', 'perfil', 'contactanos'];
     }
     else if($tipo_usuario == 3) { //usuario final
-      $this->page_access = ['reclamo', 'consulta_estado', 'seguimiento_caso', 'perfil'];
+      $this->page_access = ['reclamo', 'consulta_estado', 'seguimiento_caso', 'perfil', 'contactanos'];
     } 
     else if($tipo_usuario == 4) { //usuario sin session
-      $this->page_access = ['reclamo', 'consulta_estado'];
+      $this->page_access = ['reclamo', 'consulta_estado', 'contactanos'];
     }  else {
       $this->page_access = ['no_acess'];
     }

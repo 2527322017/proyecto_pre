@@ -8,6 +8,7 @@ session_start();
     $page = trim($_GET['page']);
  }
  $router = new Router($page);
+ $tipos_usu = ['','Administrador', 'Técnico', 'Usuario', 'Invitado'];
  $id_usuario = 0; //default
  $tipo_usuario = 4; //default
  $nombre_usuario = "Invitado"; //default
@@ -24,7 +25,7 @@ session_start();
       $nombre_usuario2 = $a[0].' '.$a[2];
    }
 }
-
+ $tipo_usuario_text = $tipos_usu[$tipo_usuario];
  $router->set_pages_user($tipo_usuario);
 
  $host = $router->base_url();
@@ -32,6 +33,7 @@ session_start();
 
  define("HOST", $host);
  define("TYPE_USER", $tipo_usuario);
+ define("TYPE_USER_TEXT", $tipo_usuario_text);
  define("NOMBRE_USUARIO", $nombre_usuario);
  define("NOMBRE_USUARIO_SMALL", $nombre_usuario2);
  define("ID_USUARIO", $id_usuario);

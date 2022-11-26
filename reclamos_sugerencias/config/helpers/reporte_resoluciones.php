@@ -18,7 +18,7 @@ if($_POST && isset($_POST['table_reporte']) && isset($_POST['tipo_reporte']) ) {
       <tr>
       <td width="20%" align="center"><img width="60px" src="'.$logo.'" /></td>
       <td width="60%" align="center"><h2>Gestión de reclamos y sugerencias HNR </h2><b>'.$titulo_reporte.'</b><br />'.$filtro.'</td>
-      <td  width="20%" align="center">'.$_SESSION['usuario']['usuario'].'<br />'. date('d/m/Y H:i:s').'</td>
+      <td  width="20%" align="center">'.$_POST['usuario'].'<br />'. date('d/m/Y H:i:s').'</td>
       <tr>
     </table>
     <div width="100%" style="border-top:1px solid black;">&nbsp;</div>
@@ -31,7 +31,7 @@ if($_POST && isset($_POST['table_reporte']) && isset($_POST['tipo_reporte']) ) {
       <tr>
       <td colspan = "'.($cantidad_columnas - 1).'" align="center">
       <h2>Gestión de reclamos y sugerencias HNR </h2><b>'.$titulo_reporte.'</b><br />'.$filtro.'</td>
-      <td align="center">'.$_SESSION['usuario']['usuario'].'<br />'. date('d/m/Y H:i:s').'</td>
+      <td align="center">'.$_POST['usuario'].'<br />'. date('d/m/Y H:i:s').'</td>
       <tr>
     </table>
   ';
@@ -43,7 +43,7 @@ if($_POST && isset($_POST['table_reporte']) && isset($_POST['tipo_reporte']) ) {
       $mpdf->SetHTMLFooter($footer,'E');
       $mpdf->SetTitle('Reporte resolución');
   
-      if($vn != 8) {
+      if(substr_count(strtolower($_SERVER['SERVER_NAME']), 'azure') > 0) {
         $mpdf->AddPage('L');
       }
   

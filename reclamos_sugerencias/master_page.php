@@ -55,7 +55,7 @@
                             <img src="<?=HOST?>images/sistema.png" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
-                            <span>Bienvenid@,</span>
+                            <span><?=TYPE_USER_TEXT?></span>
                             <h2><?=NOMBRE_USUARIO_SMALL?></h2>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                                         <li><a href="<?=HOST?>page/reporte4">Estadisticas de reclamo/sugerencias</a></li>
                                     </ul>
                                 </li>
-                                <li><a><i class="fa fa-bar-chart-o"></i> Configuración <span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="fa fa-cog"></i> Configuración <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="<?=HOST?>page/departamento">Departamento</a></li>
                                         <li><a href="<?=HOST?>page/municipio">Municipio</a></li>
@@ -121,11 +121,10 @@
                         <div class="menu_section">
                             <h3>OTROS</h3>
                             <ul class="nav side-menu">
-                                <li><a><i class="fa fa-comments"></i> Contactanos<span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="fa fa-comments"></i> Cont&aacute;ctanos<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="#">Preguntas frecuentes</a></li>
-                                        <li><a href="#">Telefonos</a></li>
-                                        <li><a href="#">Redes sociales</a></li>
+                                        <li style="display:none;"><a href="<?=HOST?>page/preguntas_frecuentes">Preguntas frecuentes</a></li>
+                                        <li><a href="<?=HOST?>page/contactanos">Tel&eacute;fonos y Ubicación</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -150,8 +149,10 @@
                                     <img src="<?=HOST?>images/user.png" alt=""><?=NOMBRE_USUARIO_SMALL?>
                                 </a>
                                 <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                    <?php if(in_array(TYPE_USER,[1,2,3])) { ?>
                                     <a class="dropdown-item" href="<?=HOST?>page/perfil"> Perfil</a>
-                                    <a class="dropdown-item" id="lnkLogout" href="<?=HOST?>logout"><i class="fa fa-sign-out pull-right"></i>Cerrar sesión</a>
+                                    <?php }  ?>
+                                    <a class="dropdown-item" id="lnkLogout" href="<?=HOST?>logout"><i class="fa fa-sign-out pull-right"></i><?=in_array(TYPE_USER,[1,2,3])? "Cerrar sesión":"Iniciar sesión"?></a>
                                 </div>
                             </li>
                         </ul>

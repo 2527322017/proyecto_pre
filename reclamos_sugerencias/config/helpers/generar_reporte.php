@@ -21,7 +21,8 @@ $array_reportes = [
 
 if($_GET && isset($_GET['file_reporte']) && in_array(trim($_GET['file_reporte']), $array_reportes)) {
   $file = trim($_GET['file_reporte']);
-  include __DIR__ . "/".$file.".php";
+  $_POST['usuario'] = $_SESSION['usuario']['usuario'];
+  include($file.".php");
 } else {
   header("Location: $host");
 }
